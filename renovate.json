@@ -12,10 +12,10 @@
     {
       "managers": ["gradle"],
       "matchPackagePatterns": [
-        "^org\\.jetbrains\\.kotlin[.:]"
+        "^org\\.jetbrains\\.kotlinx?[.:]"
       ],
-      "groupName": "Kotlin core dependencies",
-      "groupSlug": "core-kotlin"
+      "groupName": "Kotlin and KotlinX dependencies",
+      "groupSlug": "kotlin"
     }
   ]
 }
