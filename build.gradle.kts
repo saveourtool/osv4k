@@ -1,6 +1,6 @@
 plugins {
-    kotlin("multiplatform") version "1.9.0"
-    kotlin("plugin.serialization") version "1.9.0"
+    alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.kotlin.plugin.serialization)
 }
 
 group = "com.saveourtool.osv4k"
@@ -15,17 +15,32 @@ kotlin {
     mingwX64()
     macosX64()
     sourceSets {
+        @Suppress("UNUSED_VARIABLE")
         val commonMain by getting {
             dependencies {
-                api("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
-                api("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
+                api(libs.kotlinx.serialization.json)
+                api(libs.kotlinx.datetime)
             }
         }
+        @Suppress("UNUSED_VARIABLE")
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
-                implementation("org.jetbrains:annotations:24.0.0")
+                implementation(libs.jetbrains.annotations)
+            }
+        }
+        @Suppress("UNUSED_VARIABLE")
+        val jvmMain by getting {
+            dependencies {
+                api(libs.jackson.annotations)
+                api(libs.jackson.databind)
+            }
+        }
+        @Suppress("UNUSED_VARIABLE")
+        val jvmTest by getting {
+            dependencies {
+                implementation(libs.jackson.module.kotlin)
+                implementation(libs.jackson.datatype.jsr310)
             }
         }
     }

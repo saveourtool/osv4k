@@ -1,0 +1,5 @@
+package com.saveourtool.osv4k.utils
+
+expect class LocalDateTimeRfc3339JacksonSerializer
+
+expect class LocalDateTimeRfc3339JacksonDeserializer

@@ -13,14 +13,11 @@ object LocalDateTimeRfc3339Serializer: KSerializer<LocalDateTime> {
         PrimitiveSerialDescriptor("LocalDateTime", PrimitiveKind.STRING)
 
     override fun deserialize(decoder: Decoder): LocalDateTime = decoder.decodeString().let { value ->
-        require(value.endsWith("z", ignoreCase = true)) {
-            "Support only RFC339 with 'Z' at the end"
-        }
-        LocalDateTime.parse(value.replace("[t_ ]".toRegex(), "T").replace("[zZ]".toRegex(), ""))
+        LocalDateTimeRfc3339Util.fromString(value)
     }
 
 
     override fun serialize(encoder: Encoder, value: LocalDateTime) {
-        encoder.encodeString(value.toString() + "Z")
+        encoder.encodeString(LocalDateTimeRfc3339Util.toString(value))
     }
 }
