@@ -14,4 +14,11 @@ kotlin {
     linuxX64()
     mingwX64()
     macosX64()
+    sourceSets {
+        val commonMain by getting {
+            dependencies {
+                api("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
+            }
+        }
+    }
 }

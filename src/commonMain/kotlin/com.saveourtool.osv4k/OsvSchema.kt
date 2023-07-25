@@ -1,3 +1,6 @@
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+
 /**
  * A schema for describing a vulnerability in an open source package.
  */
@@ -6,7 +9,7 @@ data class OsvSchema (
     val aliases: List<String>? = null,
     val credits: List<Credit>? = null,
 
-    @Json(name = "database_specific")
+    @SerialName("database_specific")
     val databaseSpecific: Map<String, Any?>? = null,
 
     val details: String? = null,
@@ -16,32 +19,26 @@ data class OsvSchema (
     val references: List<Reference>? = null,
     val related: List<String>? = null,
 
-    @Json(name = "schema_version")
+    @SerialName("schema_version")
     val schemaVersion: String? = null,
 
-    val severity: List<OsvSchem>? = null,
+    val severity: List<Severity>? = null,
     val summary: String? = null,
     val withdrawn: String? = null
-) {
-    public fun toJson() = klaxon.toJsonString(this)
-
-    companion object {
-        public fun fromJson(json: String) = klaxon.parse<OsvSchema>(json)
-    }
-}
+)
 
 data class Affected (
-    @Json(name = "database_specific")
+    @SerialName("database_specific")
     val databaseSpecific: Map<String, Any?>? = null,
 
-    @Json(name = "ecosystem_specific")
+    @SerialName("ecosystem_specific")
     val ecosystemSpecific: Map<String, Any?>? = null,
 
-    @Json(name = "package")
+    @SerialName("package")
     val affectedPackage: Package? = null,
 
     val ranges: List<Range>? = null,
-    val severity: List<OsvSchem>? = null,
+    val severity: List<Severity>? = null,
     val versions: List<String>? = null
 )
 
@@ -52,7 +49,7 @@ data class Package (
 )
 
 data class Range (
-    @Json(name = "database_specific")
+    @SerialName("database_specific")
     val databaseSpecific: Map<String, Any?>? = null,
 
     val events: List<Event>,
@@ -64,7 +61,7 @@ data class Event (
     val introduced: String? = null,
     val fixed: String? = null,
 
-    @Json(name = "last_affected")
+    @SerialName("last_affected")
     val lastAffected: String? = null,
 
     val limit: String? = null
@@ -85,7 +82,8 @@ enum class RangeType(val value: String) {
     }
 }
 
-data class OsvSchem (
+@Serializable
+data class Severity (
     val score: String,
     val type: SeverityType
 )
@@ -95,7 +93,7 @@ enum class SeverityType(val value: String) {
     CvssV3("CVSS_V3");
 
     companion object {
-        public fun fromValue(value: String): SeverityType = when (value) {
+        fun fromValue(value: String): SeverityType = when (value) {
             "CVSS_V2" -> CvssV2
             "CVSS_V3" -> CvssV3
             else      -> throw IllegalArgumentException()
@@ -103,6 +101,7 @@ enum class SeverityType(val value: String) {
     }
 }
 
+@Serializable
 data class Credit (
     val contact: List<String>? = null,
     val name: String,
@@ -138,6 +137,7 @@ enum class CreditType(val value: String) {
     }
 }
 
+@Serializable
 data class Reference (
     val type: ReferenceType,
     val url: String
@@ -157,19 +157,6 @@ enum class ReferenceType(val value: String) {
     Web("WEB");
 
     companion object {
-        public fun fromValue(value: String): ReferenceType = when (value) {
-            "ADVISORY"   -> Advisory
-            "ARTICLE"    -> Article
-            "DETECTION"  -> Detection
-            "DISCUSSION" -> Discussion
-            "EVIDENCE"   -> Evidence
-            "FIX"        -> Fix
-            "GIT"        -> Git
-            "INTRODUCED" -> Introduced
-            "PACKAGE"    -> Package
-            "REPORT"     -> Report
-            "WEB"        -> Web
-            else         -> throw IllegalArgumentException()
-        }
+        fun fromValue(value: String): ReferenceType = entries.find { it.value == value } ?: throw IllegalArgumentException()
     }
 }
