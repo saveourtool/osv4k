@@ -1,4 +1,4 @@
-package com.saveourtool.osv4k.annotations
+package com.saveourtool.osv4k.jackson
 
 import kotlin.reflect.KClass
 
@@ -23,4 +23,3 @@ actual enum class JsonSerializeInclusion {
     DEFAULT_INCLUSION,
     ;
 }
-actual class JavaVoid

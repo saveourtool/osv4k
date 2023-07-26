@@ -1,4 +1,4 @@
-package com.saveourtool.osv4k.annotations
+package com.saveourtool.osv4k.jackson
 
 actual annotation class JsonProperty actual constructor(
     actual val value: String,

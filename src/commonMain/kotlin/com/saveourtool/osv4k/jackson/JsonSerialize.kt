@@ -1,4 +1,4 @@
-package com.saveourtool.osv4k.annotations
+package com.saveourtool.osv4k.jackson
 
 import kotlin.reflect.KClass
 
@@ -23,5 +23,3 @@ expect enum class JsonSerializeInclusion {
     DEFAULT_INCLUSION,
     ;
 }
-
-expect class JavaVoid

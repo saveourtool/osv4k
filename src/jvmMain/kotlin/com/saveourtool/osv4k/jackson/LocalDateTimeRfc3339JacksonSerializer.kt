@@ -1,4 +1,4 @@
-package com.saveourtool.osv4k.utils
+package com.saveourtool.osv4k.jackson
 
 import com.fasterxml.jackson.core.JsonGenerator
 import com.fasterxml.jackson.core.JsonParser
@@ -14,7 +14,7 @@ import com.fasterxml.jackson.databind.ser.std.StdSerializer
 import com.fasterxml.jackson.databind.type.LogicalType
 import com.fasterxml.jackson.databind.util.AccessPattern
 import com.fasterxml.jackson.databind.util.NameTransformer
-import com.saveourtool.osv4k.annotations.JsonDeserializer
+import com.saveourtool.osv4k.utils.LocalDateTimeRfc3339Util
 import kotlinx.datetime.LocalDateTime
 
 actual class LocalDateTimeRfc3339JacksonSerializer : JsonSerializer<LocalDateTime>() {
@@ -51,33 +51,21 @@ actual class LocalDateTimeRfc3339JacksonSerializer : JsonSerializer<LocalDateTim
         stdSerializer.serializeWithType(value, gen, serializers, typeSer)
     }
 
-    override fun handledType(): Class<LocalDateTime> {
-        return stdSerializer.handledType()
-    }
+    override fun handledType(): Class<LocalDateTime> = stdSerializer.handledType()
 
-    override fun isEmpty(value: LocalDateTime?): Boolean {
-        return stdSerializer.isEmpty(value)
-    }
+    @Suppress("OVERRIDE_DEPRECATION")
+    override fun isEmpty(value: LocalDateTime?): Boolean = stdSerializer.isEmpty(value)
 
-    override fun isEmpty(provider: SerializerProvider?, value: LocalDateTime?): Boolean {
-        return stdSerializer.isEmpty(provider, value)
-    }
+    override fun isEmpty(provider: SerializerProvider?, value: LocalDateTime?): Boolean =
+            stdSerializer.isEmpty(provider, value)
 
-    override fun usesObjectId(): Boolean {
-        return stdSerializer.usesObjectId()
-    }
+    override fun usesObjectId(): Boolean = stdSerializer.usesObjectId()
 
-    override fun isUnwrappingSerializer(): Boolean {
-        return stdSerializer.isUnwrappingSerializer
-    }
+    override fun isUnwrappingSerializer(): Boolean = stdSerializer.isUnwrappingSerializer
 
-    override fun getDelegatee(): JsonSerializer<*> {
-        return stdSerializer.delegatee
-    }
+    override fun getDelegatee(): JsonSerializer<*> = stdSerializer.delegatee
 
-    override fun properties(): MutableIterator<PropertyWriter> {
-        return stdSerializer.properties()
-    }
+    override fun properties(): MutableIterator<PropertyWriter> = stdSerializer.properties()
 }
 
 actual class LocalDateTimeRfc3339JacksonDeserializer : JsonDeserializer<LocalDateTime>() {

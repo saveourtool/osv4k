@@ -1,8 +1,6 @@
 package com.saveourtool.osv4k
 
-import com.saveourtool.osv4k.annotations.*
-import com.saveourtool.osv4k.utils.LocalDateTimeRfc3339JacksonDeserializer
-import com.saveourtool.osv4k.utils.LocalDateTimeRfc3339JacksonSerializer
+import com.saveourtool.osv4k.jackson.*
 import com.saveourtool.osv4k.utils.LocalDateTimeRfc3339Serializer
 import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.SerialName
@@ -15,7 +13,13 @@ typealias RawOsvSchema = OsvSchema<JsonObject, JsonObject, JsonObject, JsonObjec
  * A schema for describing a vulnerability in an open source package.
  */
 @Serializable
-data class OsvSchema<D, A_D, A_E, A_R_D> (
+@JsonInclude(
+    value = JsonIncludeType.NON_NULL,
+    content = JsonIncludeType.ALWAYS,
+    valueFilter = JavaVoid::class,
+    contentFilter = JavaVoid::class,
+)
+data class OsvSchema<D, A_D, A_E, A_R_D> @JsonCreator(JsonCreatorMode.DEFAULT) constructor(
     @SerialName("schema_version")
     @JsonProperty(value = "schema_version", namespace = "", required = true, index = -1, defaultValue = "", access = JsonPropertyAccess.AUTO)
     // TODO: add validation to SemVer or re-use library for it
@@ -116,6 +120,12 @@ data class OsvSchema<D, A_D, A_E, A_R_D> (
 )
 
 @Serializable
+@JsonInclude(
+    value = JsonIncludeType.NON_NULL,
+    content = JsonIncludeType.ALWAYS,
+    valueFilter = JavaVoid::class,
+    contentFilter = JavaVoid::class,
+)
 data class Affected<D, E, R_D> (
     val `package`: Package? = null,
 
@@ -132,6 +142,12 @@ data class Affected<D, E, R_D> (
 )
 
 @Serializable
+@JsonInclude(
+    value = JsonIncludeType.NON_NULL,
+    content = JsonIncludeType.ALWAYS,
+    valueFilter = JavaVoid::class,
+    contentFilter = JavaVoid::class,
+)
 data class Package (
     val ecosystem: String,
     val name: String,
@@ -139,6 +155,12 @@ data class Package (
 )
 
 @Serializable
+@JsonInclude(
+    value = JsonIncludeType.NON_NULL,
+    content = JsonIncludeType.ALWAYS,
+    valueFilter = JavaVoid::class,
+    contentFilter = JavaVoid::class,
+)
 data class Range<D> (
     val type: RangeType,
     val repo: String? = null,
@@ -149,6 +171,12 @@ data class Range<D> (
 )
 
 @Serializable
+@JsonInclude(
+    value = JsonIncludeType.NON_NULL,
+    content = JsonIncludeType.ALWAYS,
+    valueFilter = JavaVoid::class,
+    contentFilter = JavaVoid::class,
+)
 data class Event (
     val introduced: String? = null,
     val fixed: String? = null,
@@ -159,7 +187,6 @@ data class Event (
     val limit: String? = null
 )
 
-//@Serializable
 enum class RangeType {
     ECOSYSTEM,
     GIT,
@@ -168,6 +195,12 @@ enum class RangeType {
 }
 
 @Serializable
+@JsonInclude(
+    value = JsonIncludeType.NON_NULL,
+    content = JsonIncludeType.ALWAYS,
+    valueFilter = JavaVoid::class,
+    contentFilter = JavaVoid::class,
+)
 data class Severity (
     val type: SeverityType,
     val score: String
@@ -180,6 +213,12 @@ enum class SeverityType {
 }
 
 @Serializable
+@JsonInclude(
+    value = JsonIncludeType.NON_NULL,
+    content = JsonIncludeType.ALWAYS,
+    valueFilter = JavaVoid::class,
+    contentFilter = JavaVoid::class,
+)
 data class Credit (
     val name: String,
     val contact: List<String>? = null,
@@ -201,6 +240,12 @@ enum class CreditType {
 }
 
 @Serializable
+@JsonInclude(
+    value = JsonIncludeType.NON_NULL,
+    content = JsonIncludeType.ALWAYS,
+    valueFilter = JavaVoid::class,
+    contentFilter = JavaVoid::class,
+)
 data class Reference (
     val type: ReferenceType,
     val url: String

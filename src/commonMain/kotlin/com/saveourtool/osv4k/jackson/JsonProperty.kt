@@ -1,4 +1,4 @@
-package com.saveourtool.osv4k.annotations
+package com.saveourtool.osv4k.jackson
 
 expect annotation class JsonProperty(
     val value: String,
