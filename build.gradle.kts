@@ -12,6 +12,12 @@ repositories {
 kotlin {
     jvm {
         withJava()
+        compilations.all {
+            kotlinOptions.run {
+                jvmTarget = "1.8"
+                javaParameters = true
+            }
+        }
     }
     linuxX64()
     mingwX64()

@@ -1,6 +1,7 @@
 package com.saveourtool.osv4k
 
 import kotlinx.serialization.ExperimentalSerializationApi
+import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import kotlin.test.assertEquals
@@ -17,8 +18,11 @@ object OsvSchemaTestUtil {
         originalContent: String,
     ) {
         val result = assertNotNull(
-            Json.decodeFromString<RawOsvSchema>(originalContent)
+            decode(originalContent)
         )
-        assertEquals(originalContent, prettyJson.encodeToString(result))
+        assertEquals(originalContent, encode(result))
     }
+
+    fun decode(content: String): RawOsvSchema = Json.decodeFromString(content)
+    fun encode(value: RawOsvSchema): String = prettyJson.encodeToString(value)
 }

@@ -87,7 +87,7 @@ actual class LocalDateTimeRfc3339JacksonDeserializer : JsonDeserializer<LocalDat
 
     override fun getNullAccessPattern(): AccessPattern = stdDeserializer.nullAccessPattern
 
-    override fun getAbsentValue(ctxt: DeserializationContext?): Any = stdDeserializer.getAbsentValue(ctxt)
+    override fun getAbsentValue(ctxt: DeserializationContext?): Any? = stdDeserializer.getAbsentValue(ctxt)
 
     override fun deserializeWithType(
         p: JsonParser?,

@@ -5,5 +5,6 @@ expect annotation class JsonCreator(
 )
 expect enum class JsonCreatorMode {
     DEFAULT,
+    PROPERTIES,
     ;
 }

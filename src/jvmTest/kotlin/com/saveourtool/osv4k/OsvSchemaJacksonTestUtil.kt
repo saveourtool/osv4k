@@ -1,16 +1,12 @@
 package com.saveourtool.osv4k
 
-import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import org.intellij.lang.annotations.Language
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 
 object OsvSchemaJacksonTestUtil {
     private val objectMapper = ObjectMapper()
-        .registerKotlinModule()
-        .setSerializationInclusion(JsonInclude.Include.NON_NULL)
 
     private val prettyWriter = objectMapper.writerWithDefaultPrettyPrinter()
 
@@ -23,6 +19,7 @@ object OsvSchemaJacksonTestUtil {
         compareJsonContent(originalContent, prettyWriter.writeValueAsString(result))
 
         OsvSchemaJacksonJavaTestUtil.doEncodeDecodeAndCompare(originalContent)
+        OsvSchemaJavaTestUtil.doEncodeDecodeAndCompare(originalContent)
     }
 
     private fun compareJsonContent(

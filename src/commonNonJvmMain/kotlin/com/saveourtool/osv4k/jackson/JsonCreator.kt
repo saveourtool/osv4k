@@ -6,5 +6,6 @@ actual annotation class JsonCreator(
 
 actual enum class JsonCreatorMode {
     DEFAULT,
+    PROPERTIES,
     ;
 }
