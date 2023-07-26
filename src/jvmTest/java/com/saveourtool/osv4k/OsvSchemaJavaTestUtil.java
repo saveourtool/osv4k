@@ -5,6 +5,7 @@ import org.intellij.lang.annotations.Language;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+@SuppressWarnings("unchecked")
 class OsvSchemaJavaTestUtil {
 
     @SuppressWarnings("rawtypes")

@@ -52,11 +52,5 @@ kotlin {
                 api(libs.jackson.databind)
             }
         }
-        @Suppress("UNUSED_VARIABLE")
-        val jvmTest by getting {
-            dependencies {
-                implementation(libs.jackson.module.kotlin)
-            }
-        }
     }
 }
