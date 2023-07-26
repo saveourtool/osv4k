@@ -10,12 +10,18 @@ repositories {
 }
 
 kotlin {
-    jvm()
+    jvm {
+        withJava()
+        compilations.all {
+            kotlinOptions.run {
+                jvmTarget = "1.8"
+            }
+        }
+    }
     linuxX64()
     mingwX64()
     macosX64()
     sourceSets {
-        @Suppress("UNUSED_VARIABLE")
         val commonMain by getting {
             dependencies {
                 api(libs.kotlinx.serialization.json)
@@ -29,18 +35,21 @@ kotlin {
                 implementation(libs.jetbrains.annotations)
             }
         }
+        val commonNonJvmMain by creating {
+            dependsOn(commonMain)
+        }
+        listOf(
+            "linuxX64",
+            "mingwX64",
+            "macosX64",
+        ).forEach { nonJvmTarget ->
+            getByName("${nonJvmTarget}Main").dependsOn(commonNonJvmMain)
+        }
         @Suppress("UNUSED_VARIABLE")
         val jvmMain by getting {
             dependencies {
                 api(libs.jackson.annotations)
                 api(libs.jackson.databind)
-            }
-        }
-        @Suppress("UNUSED_VARIABLE")
-        val jvmTest by getting {
-            dependencies {
-                implementation(libs.jackson.module.kotlin)
-                implementation(libs.jackson.datatype.jsr310)
             }
         }
     }

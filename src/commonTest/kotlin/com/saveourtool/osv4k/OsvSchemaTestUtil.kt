@@ -18,8 +18,11 @@ object OsvSchemaTestUtil {
         originalContent: String,
     ) {
         val result = assertNotNull(
-            Json.decodeFromString<RawOsvSchema>(originalContent)
+            decode(originalContent)
         )
-        assertEquals(originalContent, prettyJson.encodeToString(result))
+        assertEquals(originalContent, encode(result))
     }
+
+    fun decode(content: String): RawOsvSchema = Json.decodeFromString(content)
+    fun encode(value: RawOsvSchema): String = prettyJson.encodeToString(value)
 }
