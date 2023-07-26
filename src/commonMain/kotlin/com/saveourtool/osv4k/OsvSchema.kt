@@ -81,8 +81,7 @@ data class OsvSchema<D, A_D, A_E, A_R_D>(
         keyAs = JavaVoid::class,
         contentAs = JavaVoid::class,
     )
-    @get:JsonProperty(value = "published", namespace = "", required = false, index = -1, defaultValue = "", access = JsonPropertyAccess.AUTO)
-    @param:JsonProperty(value = "published", namespace = "", required = false, index = -1, defaultValue = "", access = JsonPropertyAccess.AUTO)
+    @JsonProperty(value = "published", namespace = "", required = false, index = -1, defaultValue = "", access = JsonPropertyAccess.AUTO)
     val published: LocalDateTime? = null,
     @Serializable(with = LocalDateTimeRfc3339Serializer::class)
     @JsonSerialize(
@@ -109,33 +108,24 @@ data class OsvSchema<D, A_D, A_E, A_R_D>(
         keyAs = JavaVoid::class,
         contentAs = JavaVoid::class,
     )
-    @get:JsonProperty(value = "withdrawn", namespace = "", required = false, index = -1, defaultValue = "", access = JsonPropertyAccess.AUTO)
-    @param:JsonProperty(value = "withdrawn", namespace = "", required = false, index = -1, defaultValue = "", access = JsonPropertyAccess.AUTO)
+    @JsonProperty(value = "withdrawn", namespace = "", required = false, index = -1, defaultValue = "", access = JsonPropertyAccess.AUTO)
     val withdrawn: LocalDateTime? = null,
 
-    @get:JsonProperty(value = "aliases", namespace = "", required = false, index = -1, defaultValue = "", access = JsonPropertyAccess.AUTO)
-    @param:JsonProperty(value = "aliases", namespace = "", required = false, index = -1, defaultValue = "", access = JsonPropertyAccess.AUTO)
+    @JsonProperty(value = "aliases", namespace = "", required = false, index = -1, defaultValue = "", access = JsonPropertyAccess.AUTO)
     val aliases: List<String>? = null,
-    @get:JsonProperty(value = "related", namespace = "", required = false, index = -1, defaultValue = "", access = JsonPropertyAccess.AUTO)
-    @param:JsonProperty(value = "related", namespace = "", required = false, index = -1, defaultValue = "", access = JsonPropertyAccess.AUTO)
+    @JsonProperty(value = "related", namespace = "", required = false, index = -1, defaultValue = "", access = JsonPropertyAccess.AUTO)
     val related: List<String>? = null,
-    @get:JsonProperty(value = "summary", namespace = "", required = false, index = -1, defaultValue = "", access = JsonPropertyAccess.AUTO)
-    @param:JsonProperty(value = "summary", namespace = "", required = false, index = -1, defaultValue = "", access = JsonPropertyAccess.AUTO)
+    @JsonProperty(value = "summary", namespace = "", required = false, index = -1, defaultValue = "", access = JsonPropertyAccess.AUTO)
     val summary: String? = null,
-    @get:JsonProperty(value = "details", namespace = "", required = false, index = -1, defaultValue = "", access = JsonPropertyAccess.AUTO)
-    @param:JsonProperty(value = "details", namespace = "", required = false, index = -1, defaultValue = "", access = JsonPropertyAccess.AUTO)
+    @JsonProperty(value = "details", namespace = "", required = false, index = -1, defaultValue = "", access = JsonPropertyAccess.AUTO)
     val details: String? = null,
-    @get:JsonProperty(value = "severity", namespace = "", required = false, index = -1, defaultValue = "", access = JsonPropertyAccess.AUTO)
-    @param:JsonProperty(value = "severity", namespace = "", required = false, index = -1, defaultValue = "", access = JsonPropertyAccess.AUTO)
+    @JsonProperty(value = "severity", namespace = "", required = false, index = -1, defaultValue = "", access = JsonPropertyAccess.AUTO)
     val severity: List<Severity>? = null,
-    @get:JsonProperty(value = "affected", namespace = "", required = false, index = -1, defaultValue = "", access = JsonPropertyAccess.AUTO)
-    @param:JsonProperty(value = "affected", namespace = "", required = false, index = -1, defaultValue = "", access = JsonPropertyAccess.AUTO)
+    @JsonProperty(value = "affected", namespace = "", required = false, index = -1, defaultValue = "", access = JsonPropertyAccess.AUTO)
     val affected: List<Affected<A_D, A_E, A_R_D>>? = null,
-    @get:JsonProperty(value = "references", namespace = "", required = false, index = -1, defaultValue = "", access = JsonPropertyAccess.AUTO)
-    @param:JsonProperty(value = "references", namespace = "", required = false, index = -1, defaultValue = "", access = JsonPropertyAccess.AUTO)
+    @JsonProperty(value = "references", namespace = "", required = false, index = -1, defaultValue = "", access = JsonPropertyAccess.AUTO)
     val references: List<Reference>? = null,
-    @get:JsonProperty(value = "credits", namespace = "", required = false, index = -1, defaultValue = "", access = JsonPropertyAccess.AUTO)
-    @param:JsonProperty(value = "credits", namespace = "", required = false, index = -1, defaultValue = "", access = JsonPropertyAccess.AUTO)
+    @JsonProperty(value = "credits", namespace = "", required = false, index = -1, defaultValue = "", access = JsonPropertyAccess.AUTO)
     val credits: List<Credit>? = null,
     @SerialName("database_specific")
     @get:JsonProperty(value = "database_specific", namespace = "", required = false, index = -1, defaultValue = "", access = JsonPropertyAccess.AUTO)
@@ -166,6 +156,7 @@ data class Affected<D, E, R_D> (
     @JsonProperty(value = "ecosystem_specific", namespace = "", required = false, index = -1, defaultValue = "", access = JsonPropertyAccess.AUTO)
     val ecosystemSpecific: E? = null,
     @SerialName("database_specific")
+    @get:JsonProperty(value = "database_specific", namespace = "", required = false, index = -1, defaultValue = "", access = JsonPropertyAccess.AUTO)
     @JsonProperty(value = "database_specific", namespace = "", required = false, index = -1, defaultValue = "", access = JsonPropertyAccess.AUTO)
     val databaseSpecific: D? = null,
 )
@@ -201,7 +192,7 @@ data class Range<D> (
     @JsonProperty(value = "events", namespace = "", required = false, index = -1, defaultValue = "", access = JsonPropertyAccess.AUTO)
     val events: List<Event>,
     @SerialName("database_specific")
-    @JsonProperty(value = "database_specific", namespace = "", required = false, index = -1, defaultValue = "", access = JsonPropertyAccess.AUTO)
+    @get:JsonProperty(value = "database_specific", namespace = "", required = false, index = -1, defaultValue = "", access = JsonPropertyAccess.AUTO)
     @JsonProperty(value = "database_specific", namespace = "", required = false, index = -1, defaultValue = "", access = JsonPropertyAccess.AUTO)
     val databaseSpecific: D? = null,
 )
@@ -220,6 +211,7 @@ data class Event (
     val fixed: String? = null,
 
     @SerialName("last_affected")
+    @get:JsonProperty(value = "last_affected", namespace = "", required = false, index = -1, defaultValue = "", access = JsonPropertyAccess.AUTO)
     @JsonProperty(value = "last_affected", namespace = "", required = false, index = -1, defaultValue = "", access = JsonPropertyAccess.AUTO)
     val lastAffected: String? = null,
 
