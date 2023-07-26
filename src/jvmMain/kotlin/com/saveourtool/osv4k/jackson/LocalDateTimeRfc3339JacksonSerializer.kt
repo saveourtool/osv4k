@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.saveourtool.osv4k.jackson
 
 import com.fasterxml.jackson.core.JsonGenerator
