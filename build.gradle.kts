@@ -15,7 +15,6 @@ kotlin {
     mingwX64()
     macosX64()
     sourceSets {
-        @Suppress("UNUSED_VARIABLE")
         val commonMain by getting {
             dependencies {
                 api(libs.kotlinx.serialization.json)
@@ -28,6 +27,16 @@ kotlin {
                 implementation(kotlin("test"))
                 implementation(libs.jetbrains.annotations)
             }
+        }
+        val commonNonJvmMain by creating {
+            dependsOn(commonMain)
+        }
+        listOf(
+            "linuxX64",
+            "mingwX64",
+            "macosX64",
+        ).forEach { nonJvmTarget ->
+            getByName("${nonJvmTarget}Main").dependsOn(commonNonJvmMain)
         }
         @Suppress("UNUSED_VARIABLE")
         val jvmMain by getting {
