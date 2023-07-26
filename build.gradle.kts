@@ -51,7 +51,6 @@ kotlin {
         val jvmTest by getting {
             dependencies {
                 implementation(libs.jackson.module.kotlin)
-                implementation(libs.jackson.datatype.jsr310)
             }
         }
     }

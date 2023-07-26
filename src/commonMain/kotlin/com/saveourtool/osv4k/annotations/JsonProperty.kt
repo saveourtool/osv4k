@@ -6,12 +6,9 @@ expect annotation class JsonProperty(
     val required: Boolean,
     val index: Int,
     val defaultValue: String,
-    val access: Access,
+    val access: JsonPropertyAccess,
 )
-expect enum class Access {
+expect enum class JsonPropertyAccess {
     AUTO,
-    READ_ONLY,
-    WRITE_ONLY,
-    READ_WRITE,
     ;
 }

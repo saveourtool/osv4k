@@ -6,10 +6,10 @@ actual annotation class JsonProperty actual constructor(
     actual val required: Boolean,
     actual val index: Int,
     actual val defaultValue: String,
-    actual val access: Access
+    actual val access: JsonPropertyAccess
 )
 
-actual enum class Access {
-    AUTO, READ_ONLY, WRITE_ONLY, READ_WRITE,
+actual enum class JsonPropertyAccess {
+    AUTO,
     ;
 }

@@ -1,13 +1,13 @@
 package com.saveourtool.osv4k
 
 import com.saveourtool.osv4k.annotations.*
+import com.saveourtool.osv4k.utils.LocalDateTimeRfc3339JacksonDeserializer
 import com.saveourtool.osv4k.utils.LocalDateTimeRfc3339JacksonSerializer
 import com.saveourtool.osv4k.utils.LocalDateTimeRfc3339Serializer
 import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonObject
-import kotlin.reflect.KClass
 
 typealias RawOsvSchema = OsvSchema<JsonObject, JsonObject, JsonObject, JsonObject>
 
@@ -17,7 +17,7 @@ typealias RawOsvSchema = OsvSchema<JsonObject, JsonObject, JsonObject, JsonObjec
 @Serializable
 data class OsvSchema<D, A_D, A_E, A_R_D> (
     @SerialName("schema_version")
-    @JsonProperty(value = "schema_version", namespace = "", required = true, index = -1, defaultValue = "", access = Access.AUTO)
+    @JsonProperty(value = "schema_version", namespace = "", required = true, index = -1, defaultValue = "", access = JsonPropertyAccess.AUTO)
     // TODO: add validation to SemVer or re-use library for it
     val schemaVersion: String = "1.0.0",
 
@@ -36,6 +36,17 @@ data class OsvSchema<D, A_D, A_E, A_R_D> (
         contentConverter = ConverterNone::class,
         include = JsonSerializeInclusion.DEFAULT_INCLUSION,
     )
+    @JsonDeserialize(
+        using = LocalDateTimeRfc3339JacksonDeserializer::class,
+        contentUsing = JsonDeserializerNone::class,
+        keyUsing = KeyDeserializerNone::class,
+        builder = JavaVoid::class,
+        converter = ConverterNone::class,
+        contentConverter = ConverterNone::class,
+        `as` = JavaVoid::class,
+        keyAs = JavaVoid::class,
+        contentAs = JavaVoid::class,
+    )
     val modified: LocalDateTime,
 
     @Serializable(with = LocalDateTimeRfc3339Serializer::class)
@@ -52,6 +63,17 @@ data class OsvSchema<D, A_D, A_E, A_R_D> (
         contentConverter = ConverterNone::class,
         include = JsonSerializeInclusion.DEFAULT_INCLUSION,
     )
+    @JsonDeserialize(
+        using = LocalDateTimeRfc3339JacksonDeserializer::class,
+        contentUsing = JsonDeserializerNone::class,
+        keyUsing = KeyDeserializerNone::class,
+        builder = JavaVoid::class,
+        converter = ConverterNone::class,
+        contentConverter = ConverterNone::class,
+        `as` = JavaVoid::class,
+        keyAs = JavaVoid::class,
+        contentAs = JavaVoid::class,
+    )
     val published: LocalDateTime? = null,
     @Serializable(with = LocalDateTimeRfc3339Serializer::class)
     @JsonSerialize(
@@ -67,6 +89,17 @@ data class OsvSchema<D, A_D, A_E, A_R_D> (
         contentConverter = ConverterNone::class,
         include = JsonSerializeInclusion.DEFAULT_INCLUSION,
     )
+    @JsonDeserialize(
+        using = LocalDateTimeRfc3339JacksonDeserializer::class,
+        contentUsing = JsonDeserializerNone::class,
+        keyUsing = KeyDeserializerNone::class,
+        builder = JavaVoid::class,
+        converter = ConverterNone::class,
+        contentConverter = ConverterNone::class,
+        `as` = JavaVoid::class,
+        keyAs = JavaVoid::class,
+        contentAs = JavaVoid::class,
+    )
     val withdrawn: LocalDateTime? = null,
 
     val aliases: List<String>? = null,
@@ -78,7 +111,7 @@ data class OsvSchema<D, A_D, A_E, A_R_D> (
     val references: List<Reference>? = null,
     val credits: List<Credit>? = null,
     @SerialName("database_specific")
-    @JsonProperty(value = "database_specific", namespace = "", required = false, index = -1, defaultValue = "", access = Access.AUTO)
+    @JsonProperty(value = "database_specific", namespace = "", required = false, index = -1, defaultValue = "", access = JsonPropertyAccess.AUTO)
     val databaseSpecific: D? = null,
 )
 
@@ -91,10 +124,10 @@ data class Affected<D, E, R_D> (
     val versions: List<String>? = null,
 
     @SerialName("ecosystem_specific")
-    @JsonProperty(value = "ecosystem_specific", namespace = "", required = false, index = -1, defaultValue = "", access = Access.AUTO)
+    @JsonProperty(value = "ecosystem_specific", namespace = "", required = false, index = -1, defaultValue = "", access = JsonPropertyAccess.AUTO)
     val ecosystemSpecific: E? = null,
     @SerialName("database_specific")
-    @JsonProperty(value = "database_specific", namespace = "", required = false, index = -1, defaultValue = "", access = Access.AUTO)
+    @JsonProperty(value = "database_specific", namespace = "", required = false, index = -1, defaultValue = "", access = JsonPropertyAccess.AUTO)
     val databaseSpecific: D? = null,
 )
 

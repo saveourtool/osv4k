@@ -5,7 +5,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.module.kotlin.KotlinModule;
 import org.intellij.lang.annotations.Language;
 
@@ -14,7 +13,6 @@ import static org.junit.Assert.assertNotNull;
 
 class OsvSchemaJacksonJavaTestUtil {
     private static final ObjectMapper objectMapper = new ObjectMapper()
-        .registerModule(new JavaTimeModule())
         .registerModule(new KotlinModule.Builder().build())
         .setSerializationInclusion(JsonInclude.Include.NON_NULL);
 
