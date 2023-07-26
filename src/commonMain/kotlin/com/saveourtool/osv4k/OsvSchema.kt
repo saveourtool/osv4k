@@ -1,14 +1,14 @@
 package com.saveourtool.osv4k
 
-import com.saveourtool.osv4k.annotations.Access
-import com.saveourtool.osv4k.annotations.JsonProperty
-import com.saveourtool.osv4k.annotations.JsonSerialize
+import com.saveourtool.osv4k.annotations.*
+import com.saveourtool.osv4k.utils.LocalDateTimeRfc3339JacksonSerializer
 import com.saveourtool.osv4k.utils.LocalDateTimeRfc3339Serializer
 import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonNames
 import kotlinx.serialization.json.JsonObject
+import kotlin.reflect.KClass
 
 typealias RawOsvSchema = OsvSchema<JsonObject, JsonObject, JsonObject, JsonObject>
 
@@ -24,12 +24,50 @@ data class OsvSchema<D, A_D, A_E, A_R_D> (
 
     val id: String,
     @Serializable(with = LocalDateTimeRfc3339Serializer::class)
+    @JsonSerialize(
+        using = LocalDateTimeRfc3339JacksonSerializer::class,
+        contentUsing = JsonSerializerNone::class,
+        keyUsing = JsonSerializerNone::class,
+        nullsUsing = JsonSerializerNone::class,
+        `as` = JavaVoid::class,
+        keyAs = JavaVoid::class,
+        contentAs = JavaVoid::class,
+        typing = JsonSerializeTyping.DEFAULT_TYPING,
+        converter = ConverterNone::class,
+        contentConverter = ConverterNone::class,
+        include = JsonSerializeInclusion.DEFAULT_INCLUSION,
+    )
     val modified: LocalDateTime,
 
     @Serializable(with = LocalDateTimeRfc3339Serializer::class)
+    @JsonSerialize(
+        using = LocalDateTimeRfc3339JacksonSerializer::class,
+        contentUsing = JsonSerializerNone::class,
+        keyUsing = JsonSerializerNone::class,
+        nullsUsing = JsonSerializerNone::class,
+        `as` = JavaVoid::class,
+        keyAs = JavaVoid::class,
+        contentAs = JavaVoid::class,
+        typing = JsonSerializeTyping.DEFAULT_TYPING,
+        converter = ConverterNone::class,
+        contentConverter = ConverterNone::class,
+        include = JsonSerializeInclusion.DEFAULT_INCLUSION,
+    )
     val published: LocalDateTime? = null,
     @Serializable(with = LocalDateTimeRfc3339Serializer::class)
-    @JsonSerialize(using = )
+    @JsonSerialize(
+        using = LocalDateTimeRfc3339JacksonSerializer::class,
+        contentUsing = JsonSerializerNone::class,
+        keyUsing = JsonSerializerNone::class,
+        nullsUsing = JsonSerializerNone::class,
+        `as` = JavaVoid::class,
+        keyAs = JavaVoid::class,
+        contentAs = JavaVoid::class,
+        typing = JsonSerializeTyping.DEFAULT_TYPING,
+        converter = ConverterNone::class,
+        contentConverter = ConverterNone::class,
+        include = JsonSerializeInclusion.DEFAULT_INCLUSION,
+    )
     val withdrawn: LocalDateTime? = null,
 
     val aliases: List<String>? = null,

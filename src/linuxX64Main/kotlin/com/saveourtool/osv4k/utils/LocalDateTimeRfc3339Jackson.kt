@@ -1,4 +1,7 @@
 package com.saveourtool.osv4k.utils
 
-actual class LocalDateTimeRfc3339JacksonSerializer
+import com.saveourtool.osv4k.annotations.JsonSerializer
+import kotlinx.datetime.LocalDateTime
+
+actual class LocalDateTimeRfc3339JacksonSerializer: JsonSerializer<LocalDateTime>()
 actual class LocalDateTimeRfc3339JacksonDeserializer
