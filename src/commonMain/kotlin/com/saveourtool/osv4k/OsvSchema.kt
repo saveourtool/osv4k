@@ -6,7 +6,6 @@ import com.saveourtool.osv4k.utils.LocalDateTimeRfc3339Serializer
 import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.json.JsonNames
 import kotlinx.serialization.json.JsonObject
 import kotlin.reflect.KClass
 

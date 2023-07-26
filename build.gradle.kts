@@ -10,7 +10,9 @@ repositories {
 }
 
 kotlin {
-    jvm()
+    jvm {
+        withJava()
+    }
     linuxX64()
     mingwX64()
     macosX64()
