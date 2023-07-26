@@ -1,6 +1,13 @@
+import com.saveourtool.osv4k.buildutils.configureDiktat
+import com.saveourtool.osv4k.buildutils.configurePublishing
+import com.saveourtool.osv4k.buildutils.configureVersioning
+import com.saveourtool.osv4k.buildutils.createDetektTask
+import com.saveourtool.osv4k.buildutils.installGitHooks
+
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.kotlin.plugin.serialization)
+    id("com.saveourtool.osv4k.buildutils.kotlin-library")
 }
 
 group = "com.saveourtool.osv4k"
@@ -8,6 +15,12 @@ group = "com.saveourtool.osv4k"
 repositories {
     mavenCentral()
 }
+
+// version generation
+configureVersioning()
+// checks and validations
+configureDiktat()
+createDetektTask()
 
 kotlin {
     jvm {
