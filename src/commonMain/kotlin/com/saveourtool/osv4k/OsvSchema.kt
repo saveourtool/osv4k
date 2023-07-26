@@ -21,12 +21,12 @@ typealias RawOsvSchema = OsvSchema<JsonObject, JsonObject, JsonObject, JsonObjec
 )
 data class OsvSchema<D, A_D, A_E, A_R_D>(
     @SerialName("schema_version")
-    @get:JsonProperty(value = "schema_version", namespace = "", required = false, index = -1, defaultValue = "", access = JsonPropertyAccess.AUTO)
-    @JsonProperty(value = "schema_version", namespace = "", required = false, index = -1, defaultValue = "", access = JsonPropertyAccess.AUTO)
+    @get:JsonProperty(value = "schema_version", namespace = "", required = false, index = -1, defaultValue = "1.0.0", access = JsonPropertyAccess.AUTO)
+    @JsonProperty(value = "schema_version", namespace = "", required = false, index = -1, defaultValue = "1.0.0", access = JsonPropertyAccess.AUTO)
     // TODO: add validation to SemVer or re-use library for it
     val schemaVersion: String = "1.0.0",
 
-    @JsonProperty(value = "id", namespace = "", required = false, index = -1, defaultValue = "", access = JsonPropertyAccess.AUTO)
+    @JsonProperty(value = "id", namespace = "", required = true, index = -1, defaultValue = "", access = JsonPropertyAccess.AUTO)
     val id: String,
     @Serializable(with = LocalDateTimeRfc3339Serializer::class)
     @JsonSerialize(
@@ -53,7 +53,7 @@ data class OsvSchema<D, A_D, A_E, A_R_D>(
         keyAs = JavaVoid::class,
         contentAs = JavaVoid::class,
     )
-    @JsonProperty(value = "modified", namespace = "", required = false, index = -1, defaultValue = "", access = JsonPropertyAccess.AUTO)
+    @JsonProperty(value = "modified", namespace = "", required = true, index = -1, defaultValue = "", access = JsonPropertyAccess.AUTO)
     val modified: LocalDateTime,
 
     @Serializable(with = LocalDateTimeRfc3339Serializer::class)
