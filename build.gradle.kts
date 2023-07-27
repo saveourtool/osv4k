@@ -1,5 +1,6 @@
 import com.saveourtool.osv4k.buildutils.configureDiktat
 import com.saveourtool.osv4k.buildutils.createDetektTask
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     // alias(libs.plugins.kotlin.multiplatform)
@@ -25,6 +26,7 @@ kotlin {
     jvm {
         withJava()
         compilations.all {
+            kotlinOptions.options.jvmTarget.set(JvmTarget.JVM_1_8)
             kotlinOptions.jvmTarget = "1.8"
         }
     }
@@ -68,5 +70,12 @@ kotlin {
                 implementation(kotlin("test-junit5"))
             }
         }
+    }
+}
+
+setOf("compileJava", "compileTestJava").forEach { taskName ->
+    tasks.named<JavaCompile>(taskName) {
+        sourceCompatibility = "1.8"
+        targetCompatibility = "1.8"
     }
 }
