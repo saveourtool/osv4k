@@ -2,6 +2,7 @@ package com.saveourtool.osv4k.jackson
 
 import kotlin.reflect.KClass
 
+@Suppress("LongParameterList")
 expect annotation class JsonSerialize(
     val using: KClass<out JsonSerializer<out Any>>,
     val contentUsing: KClass<out JsonSerializer<out Any>>,
@@ -15,6 +16,7 @@ expect annotation class JsonSerialize(
     val contentConverter: KClass<out Converter<Any, Any>>,
     val include: JsonSerializeInclusion,
 )
+
 expect enum class JsonSerializeTyping {
     DEFAULT_TYPING,
     ;

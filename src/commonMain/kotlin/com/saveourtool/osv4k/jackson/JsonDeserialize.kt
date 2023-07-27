@@ -2,6 +2,7 @@ package com.saveourtool.osv4k.jackson
 
 import kotlin.reflect.KClass
 
+@Suppress("LongParameterList")
 expect annotation class JsonDeserialize(
     val using: KClass<out JsonDeserializer<out Any>>,
     val contentUsing: KClass<out JsonDeserializer<out Any>>,
