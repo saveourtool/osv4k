@@ -22,11 +22,10 @@ configureDiktat()
 createDetektTask()
 
 kotlin {
-    jvmToolchain(17)
+    jvmToolchain(11)
     jvm {
         withJava()
         compilations.all {
-            kotlinOptions.options.jvmTarget.set(JvmTarget.JVM_1_8)
             kotlinOptions.jvmTarget = "1.8"
         }
     }
