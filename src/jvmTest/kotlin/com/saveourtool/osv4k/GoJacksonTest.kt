@@ -1,4 +1,8 @@
-@file:Suppress("LONG_LINE", "TOO_LONG_FUNCTION", "LongMethod")
+@file:Suppress(
+    "LONG_LINE",
+    "TOO_LONG_FUNCTION",
+    "LongMethod",
+)
 
 package com.saveourtool.osv4k
 
