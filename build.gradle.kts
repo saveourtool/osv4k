@@ -1,12 +1,10 @@
 import com.saveourtool.osv4k.buildutils.configureDiktat
-import com.saveourtool.osv4k.buildutils.configurePublishing
 import com.saveourtool.osv4k.buildutils.configureVersioning
 import com.saveourtool.osv4k.buildutils.createDetektTask
-import com.saveourtool.osv4k.buildutils.installGitHooks
 
 plugins {
-    alias(libs.plugins.kotlin.multiplatform)
-    alias(libs.plugins.kotlin.plugin.serialization)
+//    alias(libs.plugins.kotlin.multiplatform)
+//    alias(libs.plugins.kotlin.plugin.serialization)
     id("com.saveourtool.osv4k.buildutils.kotlin-library")
 }
 
@@ -17,14 +15,14 @@ repositories {
 }
 
 // version generation
-configureVersioning()
+//configureVersioning()
 // checks and validations
 configureDiktat()
 createDetektTask()
 
 kotlin {
     jvm {
-        withJava()
+//        withJava()
         compilations.all {
             kotlinOptions.run {
                 jvmTarget = "1.8"

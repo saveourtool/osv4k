@@ -5,7 +5,7 @@
  * These source sets can be retrieved in a particular build script and configured further as needed.
  */
 
-package com.saveourtool.save.buildutils
+package com.saveourtool.osv4k.buildutils
 
 import org.gradle.kotlin.dsl.kotlin
 import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
@@ -17,6 +17,9 @@ plugins {
 }
 
 kotlin {
+    jvmToolchain {
+        this.languageVersion.set(JavaLanguageVersion.of("11"))
+    }
     jvm {
         compilations.all {
             kotlinOptions {
@@ -108,8 +111,8 @@ kotlin {
     }
 }
 
-configureJacoco()
-configurePublishing()
+//configureJacoco()
+//configurePublishing()
 configureDiktat()
 configureDetekt()
 

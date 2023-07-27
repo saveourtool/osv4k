@@ -5,7 +5,7 @@
 package com.saveourtool.osv4k.buildutils
 
 import org.ajoberstar.reckon.core.Scope
-import org.ajoberstar.reckon.core.VersionTagParser
+//import org.ajoberstar.reckon.core.VersionTagParser
 import org.ajoberstar.reckon.gradle.ReckonExtension
 import org.ajoberstar.reckon.gradle.ReckonPlugin
 import org.eclipse.jgit.api.Git
@@ -25,26 +25,26 @@ import java.util.Optional
 fun Project.configureVersioning() {
     apply<ReckonPlugin>()
 
-    val isSnapshot = hasProperty("reckon.stage") && property("reckon.stage") == "snapshot"
-    configure<ReckonExtension> {
-        setDefaultInferredScope(Scope.MINOR.name)
-        setScopeCalc(calcScopeFromProp())
-        if (isSnapshot) {
-            // we should build snapshots only for snapshot publishing, so it requires explicit parameter
-            snapshots()
-            setStageCalc(calcStageFromProp())
-            fixForSnapshot()
-        } else {
-            stages("alpha", "rc", "final")
-            setStageCalc(calcStageFromProp())
-        }
-    }
-
-    // to activate release, provide `-Prelease` or `-Prelease=true`. To deactivate, either omit the property, or set `-Prelease=false`.
-    val isRelease = hasProperty("release") && (property("release") as String != "false")
-    if (isRelease) {
-        failOnUncleanTree()
-    }
+//    val isSnapshot = hasProperty("reckon.stage") && property("reckon.stage") == "snapshot"
+//    configure<ReckonExtension> {
+//        setDefaultInferredScope(Scope.MINOR.name)
+//        setScopeCalc(calcScopeFromProp())
+//        if (isSnapshot) {
+//            // we should build snapshots only for snapshot publishing, so it requires explicit parameter
+//            snapshots()
+//            setStageCalc(calcStageFromProp())
+//            fixForSnapshot()
+//        } else {
+//            stages("alpha", "rc", "final")
+//            setStageCalc(calcStageFromProp())
+//        }
+//    }
+//
+//    // to activate release, provide `-Prelease` or `-Prelease=true`. To deactivate, either omit the property, or set `-Prelease=false`.
+//    val isRelease = hasProperty("release") && (property("release") as String != "false")
+//    if (isRelease) {
+//        failOnUncleanTree()
+//    }
 }
 
 private fun Project.failOnUncleanTree() {
@@ -66,9 +66,9 @@ private fun Project.failOnUncleanTree() {
  * we remove tags like `0.1.0-alpha`, and then reckoned version will still be `0.1.0-SNAPSHOT` and it will be compliant.
  */
 private fun ReckonExtension.fixForSnapshot() {
-    setTagParser { tagName ->
-        Optional.of(tagName)
-            .filter { it.matches(Regex("""^v\d+\.\d+\.\d+$""")) }
-            .flatMap { VersionTagParser.getDefault().parse(it) }
-    }
+//    setTagParser { tagName ->
+//        Optional.of(tagName)
+//            .filter { it.matches(Regex("""^v\d+\.\d+\.\d+$""")) }
+//            .flatMap { VersionTagParser.getDefault().parse(it) }
+//    }
 }

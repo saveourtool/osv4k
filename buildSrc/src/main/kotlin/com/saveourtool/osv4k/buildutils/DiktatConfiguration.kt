@@ -2,7 +2,7 @@
  * Configuration for diktat static analysis
  */
 
-package com.saveourtool.save.buildutils
+package com.saveourtool.osv4k.buildutils
 
 import org.cqfn.diktat.plugin.gradle.DiktatExtension
 import org.cqfn.diktat.plugin.gradle.DiktatGradlePlugin
