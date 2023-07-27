@@ -32,7 +32,7 @@
 - name: FILE_WILDCARD_IMPORTS
   enabled: true
   configuration:
-    allowedWildcards: "kotlinx.serialization.*"
+    allowedWildcards: "kotlinx.serialization.*,com.saveourtool.osv4k.jackson.*"
 - name: BRACES_BLOCK_STRUCTURE_ERROR
   enabled: true
   configuration:

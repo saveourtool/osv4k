@@ -1,11 +1,10 @@
 package com.saveourtool.osv4k
 
-import kotlinx.serialization.ExperimentalSerializationApi
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
+import kotlinx.serialization.ExperimentalSerializationApi
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 
 object OsvSchemaTestUtil {
     @OptIn(ExperimentalSerializationApi::class)
@@ -14,6 +13,9 @@ object OsvSchemaTestUtil {
         prettyPrintIndent = "  "
     }
 
+    /**
+     * @param originalContent
+     */
     fun doEncodeDecodeAndCompare(
         originalContent: String,
     ) {
@@ -23,6 +25,15 @@ object OsvSchemaTestUtil {
         assertEquals(originalContent, encode(result))
     }
 
+    /**
+     * @param content
+     * @return decoded schema
+     */
     fun decode(content: String): RawOsvSchema = Json.decodeFromString(content)
+
+    /**
+     * @param value
+     * @return encoded schema
+     */
     fun encode(value: RawOsvSchema): String = prettyJson.encodeToString(value)
 }

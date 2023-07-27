@@ -7,9 +7,11 @@ import kotlin.test.assertNotNull
 
 object OsvSchemaJacksonTestUtil {
     private val objectMapper = ObjectMapper()
-
     private val prettyWriter = objectMapper.writerWithDefaultPrettyPrinter()
 
+    /**
+     * @param originalContent
+     */
     fun doEncodeDecodeAndCompare(
         @Language("JSON") originalContent: String,
     ) {

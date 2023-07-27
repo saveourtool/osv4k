@@ -16,6 +16,7 @@ repositories {
 // version generation
 // configureVersioning()
 // checks and validations
+
 configureDiktat()
 createDetektTask()
 

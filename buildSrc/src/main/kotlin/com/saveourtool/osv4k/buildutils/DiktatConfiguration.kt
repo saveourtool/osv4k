@@ -21,17 +21,14 @@ fun Project.configureDiktat() {
         diktatConfigFile = rootProject.file("diktat-analysis.yml")
         githubActions = findProperty("diktat.githubActions")?.toString()?.toBoolean() ?: false
         inputs {
-            if (path == rootProject.path) {
-                include(
-                    "buildSrc/src/**/*.kt",
-                    "buildSrc/**/*.kts",
-                    "*.kts"
-                )
-                exclude("build", "buildSrc/build")
-            } else {
-                include("src/**/*.kt", "*.kts", "src/**/*.kts")
-                exclude("build/**")
-            }
+            include(
+                "buildSrc/src/**/*.kt",
+                "buildSrc/**/*.kts",
+                "*.kts",
+                "src/**/*.kt",
+                "src/**/*.kts",
+            )
+            exclude("build", "buildSrc/build")
         }
     }
     fixDiktatTask()
