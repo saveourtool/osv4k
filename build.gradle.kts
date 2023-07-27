@@ -1,6 +1,5 @@
 import com.saveourtool.osv4k.buildutils.configureDiktat
 import com.saveourtool.osv4k.buildutils.createDetektTask
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     // alias(libs.plugins.kotlin.multiplatform)
