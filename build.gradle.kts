@@ -21,8 +21,9 @@ configureDiktat()
 createDetektTask()
 
 kotlin {
+    jvmToolchain(8)
     jvm {
-        // withJava()
+        withJava()
         compilations.all {
             kotlinOptions.run {
                 jvmTarget = "1.8"
@@ -61,6 +62,12 @@ kotlin {
             dependencies {
                 api(libs.jackson.annotations)
                 api(libs.jackson.databind)
+            }
+        }
+        val jvmTest by getting {
+            dependsOn(commonTest)
+            dependencies {
+                implementation(kotlin("test-junit5"))
             }
         }
     }
