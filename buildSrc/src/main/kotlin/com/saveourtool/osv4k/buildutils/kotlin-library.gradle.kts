@@ -111,8 +111,8 @@ kotlin {
     }
 }
 
-//configureJacoco()
-//configurePublishing()
+// configureJacoco()
+// configurePublishing()
 configureDiktat()
 configureDetekt()
 

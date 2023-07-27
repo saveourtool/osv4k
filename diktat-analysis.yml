@@ -1,10 +1,10 @@
 - name: DIKTAT_COMMON
   enabled: true
   configuration:
-    domainName: com.saveourtool.save
+    domainName: com.saveourtool.osv4k
     kotlinVersion: 1.6
-    srcDirectories: "commonMain,commonNonJvmMain,jvmMain"
-    testDirs: "commonTest,jvmTest"
+    srcDirectories: "main,commonMain,commonNonJvmMain,jvmMain"
+    testDirs: "test,commonTest,jvmTest"
 - name: AVOID_NULL_CHECKS
   enabled: false
 - name: ENUM_VALUE
