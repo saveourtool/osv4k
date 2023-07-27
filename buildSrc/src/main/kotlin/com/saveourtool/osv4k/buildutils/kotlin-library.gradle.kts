@@ -7,7 +7,6 @@
 
 package com.saveourtool.osv4k.buildutils
 
-import org.gradle.kotlin.dsl.kotlin
 import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
 import org.jetbrains.kotlin.gradle.targets.jvm.tasks.KotlinJvmTest
 
@@ -112,7 +111,7 @@ kotlin {
 }
 
 // configureJacoco()
-// configurePublishing()
+configurePublishing()
 configureDiktat()
 configureDetekt()
 

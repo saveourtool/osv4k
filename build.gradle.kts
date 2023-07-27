@@ -1,4 +1,5 @@
 import com.saveourtool.osv4k.buildutils.configureDiktat
+import com.saveourtool.osv4k.buildutils.configureVersioning
 import com.saveourtool.osv4k.buildutils.createDetektTask
 
 plugins {
@@ -14,7 +15,7 @@ repositories {
 }
 
 // version generation
-// configureVersioning()
+configureVersioning()
 // checks and validations
 
 configureDiktat()
@@ -38,7 +39,6 @@ kotlin {
                 api(libs.kotlinx.datetime)
             }
         }
-        @Suppress("UNUSED_VARIABLE")
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
@@ -62,6 +62,7 @@ kotlin {
                 api(libs.jackson.databind)
             }
         }
+        @Suppress("UNUSED_VARIABLE")
         val jvmTest by getting {
             dependsOn(commonTest)
             dependencies {
