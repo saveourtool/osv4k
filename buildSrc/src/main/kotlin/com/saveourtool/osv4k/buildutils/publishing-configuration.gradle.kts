@@ -87,18 +87,20 @@ fun Project.configureNexusPublishing() {
         return
     }
 
+    System.getenv("OSSRH_USERNAME")?.let { sonatypeUsername ->
+        extra.set("sonatypeUsername", sonatypeUsername)
+    }
+    System.getenv("OSSRH_PASSWORD")?.let { sonatypePassword ->
+        extra.set("sonatypePassword", sonatypePassword)
+    }
+
     if (!hasProperties("sonatypeUsername", "sonatypePassword")) {
         styledOut(logCategory = "nexus")
-            .style(Info)
-            .text("Skipping Nexus publishing configuration as either ")
-            .style(Identifier)
-            .text("sonatypeUsername")
-            .style(Info)
-            .text(" or ")
-            .style(Identifier)
-            .text("sonatypePassword")
-            .style(Info)
-            .text(" are not set")
+            .style(Info).text("Skipping Nexus publishing configuration as either ")
+            .style(Identifier).text("sonatypeUsername")
+            .style(Info).text(" or ")
+            .style(Identifier).text("sonatypePassword")
+            .style(Info).text(" are not set")
             .println()
         return
     }
