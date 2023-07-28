@@ -64,10 +64,6 @@ fun Project.configurePublishing() {
  * Creates the publications.
  */
 fun Project.createPublications() {
-    if (this == rootProject) {
-        return
-    }
-
     publishing {
         publications {
             create<MavenPublication>("maven") {
@@ -84,10 +80,6 @@ fun Project.createPublications() {
  */
 @Suppress("TOO_LONG_FUNCTION")
 fun Project.configureNexusPublishing() {
-    if (this != rootProject) {
-        return
-    }
-
     System.getenv("OSSRH_USERNAME")?.let { sonatypeUsername ->
         extra.set("sonatypeUsername", sonatypeUsername)
     }
@@ -153,10 +145,6 @@ fun Project.configureGitHubPublishing(): Unit =
  */
 @Suppress("TOO_LONG_FUNCTION")
 fun Project.configurePublications() {
-    if (this == rootProject) {
-        return
-    }
-
     tasks.named<Jar>("javadocJar").configure {
         from(tasks.findByName("dokkaJavadoc"))
     }
@@ -199,10 +187,6 @@ fun Project.configurePublications() {
  * Should be explicitly called after each custom `publishing {}` section.
  */
 fun Project.configureSigning() {
-    if (this == rootProject) {
-        return
-    }
-
     System.getenv("GPG_SEC")?.let {
         extra.set("signingKey", it)
     }
@@ -258,8 +242,6 @@ fun Project.configureSigning() {
     "SpreadOperator",
 )
 fun Project.configureSigningCommon(useKeys: SigningExtension.() -> Unit = {}) {
-    require(this != rootProject)
-
     configure<SigningExtension> {
         useKeys()
         val publications = extensions.getByType<PublishingExtension>().publications
