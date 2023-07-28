@@ -14,7 +14,6 @@ repositories {
 createDetektTask()
 
 kotlin {
-    jvmToolchain(11)
     jvm {
         withJava()
         compilations.all {
