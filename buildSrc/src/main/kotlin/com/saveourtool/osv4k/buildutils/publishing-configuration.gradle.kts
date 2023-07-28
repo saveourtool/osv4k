@@ -82,6 +82,7 @@ fun Project.createPublications() {
 /**
  * Configures Maven Central as the publish destination.
  */
+@Suppress("TOO_LONG_FUNCTION")
 fun Project.configureNexusPublishing() {
     if (this != rootProject) {
         return
@@ -96,11 +97,16 @@ fun Project.configureNexusPublishing() {
 
     if (!hasProperties("sonatypeUsername", "sonatypePassword")) {
         styledOut(logCategory = "nexus")
-            .style(Info).text("Skipping Nexus publishing configuration as either ")
-            .style(Identifier).text("sonatypeUsername")
-            .style(Info).text(" or ")
-            .style(Identifier).text("sonatypePassword")
-            .style(Info).text(" are not set")
+            .style(Info)
+            .text("Skipping Nexus publishing configuration as either ")
+            .style(Identifier)
+            .text("sonatypeUsername")
+            .style(Info)
+            .text(" or ")
+            .style(Identifier)
+            .text("sonatypePassword")
+            .style(Info)
+            .text(" are not set")
             .println()
         return
     }
