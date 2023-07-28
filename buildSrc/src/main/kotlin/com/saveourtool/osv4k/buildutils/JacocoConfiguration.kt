@@ -22,7 +22,7 @@ fun Project.configureJacoco() {
     apply<JacocoPlugin>()
 
     configure<JacocoPluginExtension> {
-        toolVersion = "0.8.8"
+        toolVersion = JacocoPlugin.DEFAULT_JACOCO_VERSION
     }
 
     val kotlin: KotlinMultiplatformExtension = extensions.getByType()
@@ -34,11 +34,10 @@ fun Project.configureJacoco() {
     }
 
     val configure: JacocoReport.() -> Unit = {
+        dependsOn(jvmTestTask)
         executionData(jvmTestTask.extensions.getByType(JacocoTaskExtension::class.java).destinationFile)
-        // todo: include platform-specific source sets
         additionalSourceDirs(
-            kotlin.sourceSets["commonMain"].kotlin.sourceDirectories +
-            kotlin.sourceSets["commonNonJvmMain"].kotlin.sourceDirectories
+            kotlin.sourceSets["commonMain"].kotlin.sourceDirectories
         )
         classDirectories.setFrom(fileTree("$buildDir/classes/kotlin/jvm/main").apply {
             exclude("**/*\$\$serializer.class")
@@ -50,10 +49,10 @@ fun Project.configureJacoco() {
     }
 
     // `application` plugin creates jacocoTestReport task in plugin section (this is definitely incorrect behavior)
-    // AFTER that in "com.saveourtool.save.buildutils.kotlin-library" we try to register this task once again and fail
+    // AFTER that in "com.saveourtool.osv4k.buildutils.kotlin-library" we try to register this task once again and fail
     // so the order of plugins in `apply` is critically important
-    val jacocoTestReportTask = if (project.name == "save-cli") {
-        val jacocoTestReportTask by tasks.named("jacocoTestReport", configure)
+    val jacocoTestReportTask = if (project.name == "osv4k") {
+        val jacocoTestReportTask by tasks.register("jacocoTestReport", configure)
         jacocoTestReportTask
     } else {
         val jacocoTestReportTask by tasks.register("jacocoTestReport", configure)
@@ -61,5 +60,4 @@ fun Project.configureJacoco() {
     }
 
     jvmTestTask.finalizedBy(jacocoTestReportTask)
-    jacocoTestReportTask.dependsOn(jvmTestTask)
 }
