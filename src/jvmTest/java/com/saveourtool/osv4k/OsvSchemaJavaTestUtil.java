@@ -2,8 +2,8 @@ package com.saveourtool.osv4k;
 
 import org.intellij.lang.annotations.Language;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SuppressWarnings("unchecked")
 class OsvSchemaJavaTestUtil {

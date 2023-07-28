@@ -1,7 +1,6 @@
-@file:Suppress("DEPRECATION")
+@file:Suppress("DEPRECATION", "HEADER_MISSING_IN_NON_SINGLE_CLASS_FILE")
 
 package com.saveourtool.osv4k.jackson
-
 
 actual typealias Converter<IN, OUT> = com.fasterxml.jackson.databind.util.Converter<IN, OUT>
 actual typealias ConverterNone = com.fasterxml.jackson.databind.util.Converter.None

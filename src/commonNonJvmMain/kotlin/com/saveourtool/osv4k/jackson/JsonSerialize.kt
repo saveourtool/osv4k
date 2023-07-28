@@ -1,7 +1,28 @@
+@file:Suppress("HEADER_MISSING_IN_NON_SINGLE_CLASS_FILE")
+
 package com.saveourtool.osv4k.jackson
 
 import kotlin.reflect.KClass
 
+/**
+ * @property using
+ * @property contentUsing
+ * @property keyUsing
+ * @property nullsUsing
+ * @property `as`
+ * @property keyAs
+ * @property contentAs
+ * @property typing
+ * @property converter
+ * @property contentConverter
+ * @property include
+ */
+@Suppress(
+    "LongParameterList",
+    "KDOC_NO_CONSTRUCTOR_PROPERTY",
+    "BACKTICKS_PROHIBITED",
+    "TYPE_ALIAS",
+)
 actual annotation class JsonSerialize(
     actual val using: KClass<out JsonSerializer<out Any>>,
     actual val contentUsing: KClass<out JsonSerializer<out Any>>,

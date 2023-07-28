@@ -1,6 +1,8 @@
+import com.saveourtool.osv4k.buildutils.createDetektTask
+
 plugins {
-    alias(libs.plugins.kotlin.multiplatform)
-    alias(libs.plugins.kotlin.plugin.serialization)
+    id("com.saveourtool.osv4k.buildutils.kotlin-library")
+    id("com.saveourtool.osv4k.buildutils.publishing-configuration")
 }
 
 group = "com.saveourtool.osv4k"
@@ -9,18 +11,20 @@ repositories {
     mavenCentral()
 }
 
+createDetektTask()
+
 kotlin {
     jvm {
         withJava()
         compilations.all {
-            kotlinOptions.run {
-                jvmTarget = "1.8"
-            }
+            kotlinOptions.jvmTarget = "1.8"
         }
     }
-    linuxX64()
-    mingwX64()
-    macosX64()
+    val nativeTargets = setOf(
+        linuxX64(),
+        mingwX64(),
+        macosX64(),
+    )
     sourceSets {
         val commonMain by getting {
             dependencies {
@@ -28,7 +32,6 @@ kotlin {
                 api(libs.kotlinx.datetime)
             }
         }
-        @Suppress("UNUSED_VARIABLE")
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
@@ -38,12 +41,8 @@ kotlin {
         val commonNonJvmMain by creating {
             dependsOn(commonMain)
         }
-        listOf(
-            "linuxX64",
-            "mingwX64",
-            "macosX64",
-        ).forEach { nonJvmTarget ->
-            getByName("${nonJvmTarget}Main").dependsOn(commonNonJvmMain)
+        nativeTargets.forEach { nativeTarget ->
+            getByName("${nativeTarget.name}Main").dependsOn(commonNonJvmMain)
         }
         @Suppress("UNUSED_VARIABLE")
         val jvmMain by getting {
@@ -52,5 +51,19 @@ kotlin {
                 api(libs.jackson.databind)
             }
         }
+        @Suppress("UNUSED_VARIABLE")
+        val jvmTest by getting {
+            dependsOn(commonTest)
+            dependencies {
+                implementation(kotlin("test-junit5"))
+            }
+        }
+    }
+}
+
+setOf("compileJava", "compileTestJava").forEach { taskName ->
+    tasks.named<JavaCompile>(taskName) {
+        sourceCompatibility = "1.8"
+        targetCompatibility = "1.8"
     }
 }
