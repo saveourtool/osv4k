@@ -5,6 +5,14 @@ on:
   push:
     branches:
       - 'main'
+  workflow_dispatch:
+
+env:
+  GRADLE_OPTS: -Dorg.gradle.daemon=true -Dorg.gradle.parallel=true -Dorg.gradle.welcome=never
+  GPG_SEC: ${{ secrets.PGP_SEC }}
+  GPG_PASSWORD: ${{ secrets.PGP_PASSWORD }}
+  OSSRH_USERNAME: ${{ secrets.SONATYPE_USER }}
+  OSSRH_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
 
 jobs:
   build_and_test_with_code_coverage:
@@ -26,6 +34,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - name: Set up JDK 11
         uses: actions/setup-java@v3
         with:
@@ -61,6 +71,8 @@ jobs:
             -PenabledExecutables=debug
             -PgprUser=${{ github.actor }}
             -PgprKey=${{ secrets.GITHUB_TOKEN }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
         # This step needs a Git repository, so it's impossible to extract it
         # into a separate job (or, otherwise, we'd need to upload the content
@@ -100,6 +112,31 @@ jobs:
         with:
           flags: unittests
           fail_ci_if_error: false # optional (default = false)
+
+      - name: 'Publish a snapshot to GitHub'
+        id: publish-github
+        if: ${{ github.event_name == 'push' && github.ref_type == 'branch' && github.ref == 'refs/heads/main' && matrix.os == 'macos-latest' }}
+        uses: gradle/gradle-build-action@v2
+        with:
+          gradle-version: wrapper
+          arguments: |
+            -Preckon.stage=snapshot
+            publishAllPublicationsToGitHubRepository
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 'Publish a snapshot to Maven Central'
+        id: publish-sonatype
+        if: ${{ github.event_name == 'push' && github.ref_type == 'branch' && github.ref == 'refs/heads/main' && matrix.os == 'macos-latest' }}
+        uses: gradle/gradle-build-action@v2
+        with:
+          gradle-version: wrapper
+          arguments: |
+            -Preckon.stage=snapshot
+            publishToSonatype
+            closeAndReleaseSonatypeStagingRepository
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   report:
     name: Publish JUnit test results
