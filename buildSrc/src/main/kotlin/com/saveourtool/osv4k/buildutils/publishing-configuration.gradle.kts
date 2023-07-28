@@ -82,9 +82,17 @@ fun Project.createPublications() {
 /**
  * Configures Maven Central as the publish destination.
  */
+@Suppress("TOO_LONG_FUNCTION")
 fun Project.configureNexusPublishing() {
     if (this != rootProject) {
         return
+    }
+
+    System.getenv("OSSRH_USERNAME")?.let { sonatypeUsername ->
+        extra.set("sonatypeUsername", sonatypeUsername)
+    }
+    System.getenv("OSSRH_PASSWORD")?.let { sonatypePassword ->
+        extra.set("sonatypePassword", sonatypePassword)
     }
 
     if (!hasProperties("sonatypeUsername", "sonatypePassword")) {
