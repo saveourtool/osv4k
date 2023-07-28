@@ -71,8 +71,8 @@ jobs:
             -PenabledExecutables=debug
             -PgprUser=${{ github.actor }}
             -PgprKey=${{ secrets.GITHUB_TOKEN }}
-          env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
         # This step needs a Git repository, so it's impossible to extract it
         # into a separate job (or, otherwise, we'd need to upload the content
