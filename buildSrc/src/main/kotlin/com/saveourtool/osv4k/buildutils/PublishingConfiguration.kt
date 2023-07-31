@@ -1,38 +1,47 @@
+/**
+ * Publishing configuration file.
+ */
+
 package com.saveourtool.osv4k.buildutils
 
 import io.github.gradlenexus.publishplugin.NexusPublishExtension
 import io.github.gradlenexus.publishplugin.NexusPublishPlugin
+import org.gradle.api.Named
+import org.gradle.api.Project
+import org.gradle.api.publish.PublishingExtension
+import org.gradle.api.publish.maven.MavenPublication
+import org.gradle.api.publish.maven.plugins.MavenPublishPlugin
+import org.gradle.api.publish.maven.tasks.AbstractPublishToMaven
+import org.gradle.api.publish.maven.tasks.PublishToMavenRepository
 import org.gradle.internal.logging.text.StyledTextOutput
 import org.gradle.internal.logging.text.StyledTextOutput.Style.Failure
 import org.gradle.internal.logging.text.StyledTextOutput.Style.Identifier
 import org.gradle.internal.logging.text.StyledTextOutput.Style.Info
 import org.gradle.internal.logging.text.StyledTextOutput.Style.Success
 import org.gradle.internal.logging.text.StyledTextOutputFactory
+import org.gradle.jvm.tasks.Jar
+import org.gradle.kotlin.dsl.apply
+import org.gradle.kotlin.dsl.configure
+import org.gradle.kotlin.dsl.extra
+import org.gradle.kotlin.dsl.getByType
+import org.gradle.kotlin.dsl.register
 import org.gradle.kotlin.dsl.support.serviceOf
+import org.gradle.kotlin.dsl.withType
 import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
-
-plugins {
-    `maven-publish`
-    signing
-    id("org.jetbrains.dokka")
-}
-
-group = rootProject.group
-version = rootProject.version
-
-configurePublishing()
+import org.gradle.plugins.signing.Sign
+import org.gradle.plugins.signing.SigningExtension
+import org.gradle.plugins.signing.SigningPlugin
 
 /**
  * Configures all aspects of the publishing process.
  */
 fun Project.configurePublishing() {
+    apply<MavenPublishPlugin>()
     configureNexusPublishing()
     configureGitHubPublishing()
-
-    apply<MavenPublishPlugin>()
-    apply<SigningPlugin>()
-
     configurePublications()
+
+    apply<SigningPlugin>()
     configureSigning()
 
     // https://kotlinlang.org/docs/mpp-publish-lib.html#avoid-duplicate-publications
@@ -68,12 +77,8 @@ fun Project.configurePublishing() {
  */
 @Suppress("TOO_LONG_FUNCTION")
 fun Project.configureNexusPublishing() {
-    System.getenv("OSSRH_USERNAME")?.let { sonatypeUsername ->
-        extra.set("sonatypeUsername", sonatypeUsername)
-    }
-    System.getenv("OSSRH_PASSWORD")?.let { sonatypePassword ->
-        extra.set("sonatypePassword", sonatypePassword)
-    }
+    setPropertyFromEnv("OSSRH_USERNAME", "sonatypeUsername")
+    setPropertyFromEnv("OSSRH_PASSWORD", "sonatypePassword")
 
     if (!hasProperties("sonatypeUsername", "sonatypePassword")) {
         styledOut(logCategory = "nexus")
@@ -94,7 +99,7 @@ fun Project.configureNexusPublishing() {
     apply<NexusPublishPlugin>()
 
     configure<NexusPublishExtension> {
-        this@configure.repositories {
+        repositories {
             sonatype {
                 /*
                  * The default is https://oss.sonatype.org/service/local/.
@@ -114,19 +119,20 @@ fun Project.configureNexusPublishing() {
 /**
  * Configures GitHub Packages as the publish destination.
  */
-fun Project.configureGitHubPublishing(): Unit =
-        publishing {
-            repositories {
-                maven {
-                    name = "GitHub"
-                    url = uri("https://maven.pkg.github.com/saveourtool/osv4k")
-                    credentials {
-                        username = findProperty("gpr.user") as String? ?: System.getenv("GITHUB_ACTOR")
-                        password = findProperty("gpr.key") as String? ?: System.getenv("GITHUB_TOKEN")
-                    }
+fun Project.configureGitHubPublishing() {
+    configure<PublishingExtension> {
+        repositories {
+            maven {
+                name = "GitHub"
+                url = uri("https://maven.pkg.github.com/saveourtool/osv4k")
+                credentials {
+                    username = findProperty("gpr.user") as String? ?: System.getenv("GITHUB_ACTOR")
+                    password = findProperty("gpr.key") as String? ?: System.getenv("GITHUB_TOKEN")
                 }
             }
         }
+    }
+}
 
 /**
  * Configures all publications. The publications must already exist.
@@ -176,12 +182,8 @@ fun Project.configurePublications() {
  * Should be explicitly called after each custom `publishing {}` section.
  */
 fun Project.configureSigning() {
-    System.getenv("GPG_SEC")?.let {
-        extra.set("signingKey", it)
-    }
-    System.getenv("GPG_PASSWORD")?.let {
-        extra.set("signingPassword", it)
-    }
+    setPropertyFromEnv("GPG_SEC", "signingKey")
+    setPropertyFromEnv("GPG_PASSWORD", "signingPassword")
 
     if (hasProperty("signingKey")) {
         /*
@@ -257,8 +259,7 @@ fun Project.configureSigningCommon(useKeys: SigningExtension.() -> Unit = {}) {
  * @param logCategory
  * @return [StyledTextOutput]
  */
-fun Project.styledOut(logCategory: String): StyledTextOutput =
-        serviceOf<StyledTextOutputFactory>().create(logCategory)
+private fun Project.styledOut(logCategory: String): StyledTextOutput = serviceOf<StyledTextOutputFactory>().create(logCategory)
 
 /**
  * Determines if this project has all the given properties.
@@ -267,5 +268,10 @@ fun Project.styledOut(logCategory: String): StyledTextOutput =
  * @return `true` if this project has all the given properties, `false` otherwise.
  * @see Project.hasProperty
  */
-fun Project.hasProperties(vararg propertyNames: String): Boolean =
-        propertyNames.asSequence().all(this::hasProperty)
+private fun Project.hasProperties(vararg propertyNames: String): Boolean = propertyNames.asSequence().all(this::hasProperty)
+
+private fun Project.setPropertyFromEnv(envName: String, propertyName: String) {
+    System.getenv(envName)?.let {
+        extra.set(propertyName, it)
+    }
+}
