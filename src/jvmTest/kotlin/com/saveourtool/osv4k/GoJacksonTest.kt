@@ -6,14 +6,96 @@
 
 package com.saveourtool.osv4k
 
+import com.saveourtool.osv4k.OsvSchemaJacksonTestUtil.compareJsonContent
 import com.saveourtool.osv4k.OsvSchemaJacksonTestUtil.doEncodeDecodeAndCompare
+import kotlinx.datetime.LocalDateTime
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import kotlin.test.Test
+
+@Serializable
+data class GoImports(
+    val imports: List<GoImport>,
+)
+
+@Serializable
+data class GoImport(
+    val path: String,
+    val symbols: List<String>,
+)
+
+@Serializable
+data class GoUrl(
+    val url: String,
+)
 
 class GoJacksonTest {
     @Test
     fun `GO-2020-0015`() {
-        doEncodeDecodeAndCompare(
-            """
+        val osvSchema = OsvSchema<GoUrl, GoImports, Unit, Unit>(
+            schemaVersion = "1.3.1",
+            id = "GO-2020-0015",
+            modified = LocalDateTime(2023, 6, 12, 18, 45, 41),
+            published = LocalDateTime(2021, 4, 14, 20, 4, 52),
+            aliases = listOf("CVE-2020-14040", "GHSA-5rcv-m4m3-hfh7"),
+            summary = "Infinite loop when decoding some inputs in golang.org/x/text",
+            details = "An attacker could provide a single byte to a UTF16 decoder instantiated with UseBOM or ExpectBOM to trigger an infinite loop if the String function on the Decoder is called, or the Decoder is passed to transform.String. If used to parse user supplied input, this may be used as a denial of service vector.",
+            affected = listOf(
+                Affected(
+                    `package` = Package(
+                        ecosystem = "Go",
+                        name = "golang.org/x/text",
+                    ),
+                    ranges = listOf(
+                        Range(
+                            type = RangeType.SEMVER,
+                            events = listOf(
+                                Event(introduced = "0"),
+                                Event(fixed = "0.3.3"),
+                            ),
+                        ),
+                    ),
+                    ecosystemSpecific = GoImports(
+                        imports = listOf(
+                            GoImport(
+                                path = "golang.org/x/text/encoding/unicode",
+                                symbols = listOf("bomOverride.Transform", "utf16Decoder.Transform"),
+                            ),
+                            GoImport(
+                                path = "golang.org/x/text/transform",
+                                symbols = listOf("String"),
+                            ),
+                        ),
+                    ),
+                )
+            ),
+            references = listOf(
+                Reference(
+                    type = ReferenceType.FIX,
+                    url = "https://go.dev/cl/238238",
+                ),
+                Reference(
+                    type = ReferenceType.FIX,
+                    url = "https://go.googlesource.com/text/+/23ae387dee1f90d29a23c0e87ee0b46038fbed0e",
+                ),
+                Reference(
+                    type = ReferenceType.REPORT,
+                    url = "https://go.dev/issue/39491",
+                ),
+                Reference(
+                    type = ReferenceType.WEB,
+                    url = "https://groups.google.com/g/golang-announce/c/bXVeAmGOqz0",
+                ),
+            ),
+            credits = listOf(
+                Credit(name = "@abacabadabacaba"),
+                Credit(name = "Anton Gyllenberg"),
+            ),
+            databaseSpecific = GoUrl(url = "https://pkg.go.dev/vuln/GO-2020-0015"),
+        )
+
+        val testedContent = """
                         {
                           "schema_version": "1.3.1",
                           "id": "GO-2020-0015",
@@ -94,7 +176,9 @@ class GoJacksonTest {
                           }
                         }
             """.trimIndent()
-        )
+        compareJsonContent(testedContent, Json.encodeToString(osvSchema))
+        compareJsonContent(testedContent, OsvSchemaJacksonTestUtil.encode(GoExamples.go_2020_00115()))
+        doEncodeDecodeAndCompare(testedContent)
     }
 
     @Test

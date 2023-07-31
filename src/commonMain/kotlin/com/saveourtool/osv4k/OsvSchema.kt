@@ -227,7 +227,7 @@ data class OsvSchema<D, A_E, A_D, A_R_D>(
         defaultValue = "",
         access = JsonPropertyAccess.AUTO
     )
-    val affected: List<Affected<A_D, A_E, A_R_D>>? = null,
+    val affected: List<Affected<A_E, A_D, A_R_D>>? = null,
     @JsonProperty(
         value = "references",
         namespace = "",
@@ -286,7 +286,7 @@ data class OsvSchema<D, A_E, A_D, A_R_D>(
     "BACKTICKS_PROHIBITED",
     "GENERIC_NAME"
 )
-data class Affected<D, E, R_D>(
+data class Affected<E, D, R_D>(
     @JsonProperty(
         value = "package",
         namespace = "",

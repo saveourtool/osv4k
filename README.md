@@ -104,7 +104,7 @@ data class OsvSchema<D, A_D, A_E, A_R_D>
 *Note #2*: there is alias `com.saveourtool.osv4k.RawOsvSchema` for `KotlinX Serialization` which uses `kotlinx.serialization.json.JsonObject` as raw type.
 
 ## Usage
-### Kotlin using _Kotlinx Serialization_:
+### Reading: Kotlin using _Kotlinx Serialization_:
 
 ```kotlin
 import com.saveourtool.osv4k.*
@@ -119,7 +119,7 @@ fun readFromFile(pathToFile: Path) {
 }
 ```
 
-### Java using _Jackson Annotations_:
+### Reading: Java using _Jackson Annotations_:
 
 ```java
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -133,6 +133,208 @@ class Test {
     static void readFromFile(final Path pathToFile) {
         final OsvSchema result = objectMapper.readValue(pathToFile.toFile(), OsvSchema.class);
         // do something with OsvSchema
+    }
+}
+```
+
+### Generating: Kotlin using _KotlinX Serialization_:
+
+```kotlin
+
+@Serializable
+data class GoImports(
+    val imports: List<GoImport>,
+)
+
+@Serializable
+data class GoImport(
+    val path: String,
+    val symbols: List<String>,
+)
+
+@Serializable
+data class GoUrl(
+    val url: String,
+)
+
+val osvSchema = OsvSchema<GoUrl, GoImports, Unit, Unit>(
+    schemaVersion = "1.3.1",
+    id = "GO-2020-0015",
+    modified = LocalDateTime(2023, 6, 12, 18, 45, 41),
+    published = LocalDateTime(2021, 4, 14, 20, 4, 52),
+    aliases = listOf("CVE-2020-14040", "GHSA-5rcv-m4m3-hfh7"),
+    summary = "Infinite loop when decoding some inputs in golang.org/x/text",
+    details = "An attacker could provide a single byte to a UTF16 decoder instantiated with UseBOM or ExpectBOM to trigger an infinite loop if the String function on the Decoder is called, or the Decoder is passed to transform.String. If used to parse user supplied input, this may be used as a denial of service vector.",
+    affected = listOf(
+        Affected(
+            `package` = Package(
+                ecosystem = "Go",
+                name = "golang.org/x/text",
+            ),
+            ranges = listOf(
+                Range(
+                    type = RangeType.SEMVER,
+                    events = listOf(
+                        Event(introduced = "0"),
+                        Event(fixed = "0.3.3"),
+                    ),
+                ),
+            ),
+            ecosystemSpecific = GoImports(
+                imports = listOf(
+                    GoImport(
+                        path = "golang.org/x/text/encoding/unicode",
+                        symbols = listOf("bomOverride.Transform", "utf16Decoder.Transform"),
+                    ),
+                    GoImport(
+                        path = "golang.org/x/text/transform",
+                        symbols = listOf("String"),
+                    ),
+                ),
+            ),
+        )
+    ),
+    references = listOf(
+        Reference(
+            type = ReferenceType.FIX,
+            url = "https://go.dev/cl/238238",
+        ),
+        Reference(
+            type = ReferenceType.FIX,
+            url = "https://go.googlesource.com/text/+/23ae387dee1f90d29a23c0e87ee0b46038fbed0e",
+        ),
+        Reference(
+            type = ReferenceType.REPORT,
+            url = "https://go.dev/issue/39491",
+        ),
+        Reference(
+            type = ReferenceType.WEB,
+            url = "https://groups.google.com/g/golang-announce/c/bXVeAmGOqz0",
+        ),
+    ),
+    credits = listOf(
+        Credit(name = "@abacabadabacaba"),
+        Credit(name = "Anton Gyllenberg"),
+    ),
+    databaseSpecific = GoUrl(url = "https://pkg.go.dev/vuln/GO-2020-0015"),
+)
+```
+
+### Generating: Java using _Jackson Annotations_
+
+```java
+package com.saveourtool.osv4k;
+
+import kotlinx.datetime.LocalDateTime;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+public final class GoExamples {
+    private GoExamples() {}
+
+    public static class GoImports {
+        private final List<GoImport> imports;
+
+        public GoImports(List<GoImport> imports) {
+            this.imports = imports;
+        }
+
+        public List<GoImport> getImports() {
+            return Collections.unmodifiableList(imports);
+        }
+    }
+
+    public static class GoImport {
+        private final String path;
+        private final List<String> symbols;
+
+        public GoImport(String path, List<String> symbols) {
+            this.path = path;
+            this.symbols = symbols;
+        }
+
+        public String getPath() {
+            return path;
+        }
+
+        public List<String> getSymbols() {
+            return Collections.unmodifiableList(symbols);
+        }
+    }
+
+    public static class GoUrl {
+        private final String url;
+
+        public GoUrl(String url) {
+            this.url = url;
+        }
+
+        public String getUrl() {
+            return url;
+        }
+    }
+
+    public static OsvSchema<GoUrl, GoImports, Void, Void> go_2020_00115() {
+        return new OsvSchema<GoUrl, GoImports, Void, Void>(
+            "1.3.1",
+            "GO-2020-0015",
+            new LocalDateTime(2023, 6, 12, 18, 45, 41, 0),
+            new LocalDateTime(2021, 4, 14, 20, 4, 52, 0),
+            null,
+            Arrays.asList("CVE-2020-14040", "GHSA-5rcv-m4m3-hfh7"),
+            null,
+            "Infinite loop when decoding some inputs in golang.org/x/text",
+            "An attacker could provide a single byte to a UTF16 decoder instantiated with UseBOM or ExpectBOM to trigger an infinite loop if the String function on the Decoder is called, or the Decoder is passed to transform.String. If used to parse user supplied input, this may be used as a denial of service vector.",
+            null,
+            Arrays.asList(
+                new Affected<GoImports, Void, Void>(
+                    new Package(
+                        "Go",
+                        "golang.org/x/text",
+                        null
+                    ),
+                    null,
+                    Arrays.asList(
+                        new Range<>(
+                            RangeType.SEMVER,
+                            null,
+                            Arrays.asList(
+                                new Event("0", null, null, null),
+                                new Event(null, "0.3.3", null, null)
+                            ),
+                            null
+                        )
+                    ),
+                    null,
+                    new GoImports(
+                        Arrays.asList(
+                            new GoImport(
+                                "golang.org/x/text/encoding/unicode",
+                                Arrays.asList("bomOverride.Transform", "utf16Decoder.Transform")
+                            ),
+                            new GoImport(
+                                "golang.org/x/text/transform",
+                                Arrays.asList("String")
+                            )
+                        )
+                    ),
+                    null
+                )
+            ),
+            Arrays.asList(
+                new Reference(ReferenceType.FIX, "https://go.dev/cl/238238"),
+                new Reference(ReferenceType.FIX, "https://go.googlesource.com/text/+/23ae387dee1f90d29a23c0e87ee0b46038fbed0e" ),
+                new Reference(ReferenceType.REPORT, "https://go.dev/issue/39491"),
+                new Reference(ReferenceType.WEB, "https://groups.google.com/g/golang-announce/c/bXVeAmGOqz0")
+            ),
+            Arrays.asList(
+                new Credit("@abacabadabacaba", null, null),
+                new Credit("Anton Gyllenberg", null, null)
+            ),
+            new GoUrl("https://pkg.go.dev/vuln/GO-2020-0015")
+        );
     }
 }
 ```

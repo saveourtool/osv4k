@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import org.intellij.lang.annotations.Language;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
@@ -22,13 +21,6 @@ class OsvSchemaJacksonJavaTestUtil {
     ) throws JsonProcessingException {
         final OsvSchema result = objectMapper.readValue(originalContent, OsvSchema.class);
         assertNotNull(result);
-        compareJsonContent(originalContent, prettyWriter.writeValueAsString(result));
-    }
-
-    private static void compareJsonContent(
-        final String contentExpected,
-        final String contentActual
-    ) throws JsonProcessingException {
-        assertEquals(objectMapper.readTree(contentExpected), objectMapper.readTree(contentActual));
+        OsvSchemaJacksonTestUtil.INSTANCE.compareJsonContent(originalContent, prettyWriter.writeValueAsString(result));
     }
 }

@@ -1,5 +1,6 @@
 package com.saveourtool.osv4k
 
+import com.fasterxml.jackson.core.JsonProcessingException
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.intellij.lang.annotations.Language
 import kotlin.test.assertEquals
@@ -24,10 +25,14 @@ object OsvSchemaJacksonTestUtil {
         OsvSchemaJavaTestUtil.doEncodeDecodeAndCompare(originalContent)
     }
 
-    private fun compareJsonContent(
+    fun compareJsonContent(
         contentExpected: String,
         contentActual: String,
     ) {
         assertEquals(objectMapper.readTree(contentExpected), objectMapper.readTree(contentActual))
     }
+
+    fun <T> encode(
+        value: T
+    ): String = objectMapper.writeValueAsString(value)
 }
