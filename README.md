@@ -80,6 +80,29 @@ Then add the dependency as usual:
     </dependency>
     ```
 
+## Database and ecosystem specific fields
+
+_OSV Schema_ has extensions points for database and ecosystem specific fields:
+1. The top level `database_specific`.
+2. In the `affected[]` object:
+   - `affected[].ecosystem_specific`;
+   - `affected[].database_specific`.
+3. `affected[].ranges[].database`.
+
+_OSV4K Model_ implements it using generic type:
+```kotlin
+/**
+ * @param D The top level `database_specific`.
+ * @param A_E `affected[].ecosystem_specific`.
+ * @param A_D `affected[].database_specific`.
+ * @param A_R_D `affected[].ranges[].database_specific`.
+ */
+data class OsvSchema<D, A_D, A_E, A_R_D>
+```
+
+*Note #1*: these types should be serializable for selected engine.
+*Note #2*: there is alias `com.saveourtool.osv4k.RawOsvSchema` for `KotlinX Serialization` which uses `kotlinx.serialization.json.JsonObject` as raw type.
+
 ## Usage
 ### Kotlin using _Kotlinx Serialization_:
 
