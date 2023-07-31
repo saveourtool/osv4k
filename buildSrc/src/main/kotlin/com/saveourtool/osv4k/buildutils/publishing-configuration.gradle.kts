@@ -28,6 +28,10 @@ configurePublishing()
 fun Project.configurePublishing() {
     configureNexusPublishing()
     configureGitHubPublishing()
+
+    apply<MavenPublishPlugin>()
+    apply<SigningPlugin>()
+
     configurePublications()
     configureSigning()
 
@@ -238,6 +242,12 @@ fun Project.configureSigningCommon(useKeys: SigningExtension.() -> Unit = {}) {
         }
         styledOut(logCategory = "signing").style(style).println(message)
         sign(*publications.toTypedArray())
+    }
+    tasks.withType<PublishToMavenRepository>().configureEach {
+        // Workaround for the problem described at https://github.com/saveourtool/save-cli/pull/501#issuecomment-1439705340.
+        // We have a single Javadoc artifact shared by all platforms, hence all publications depend on signing of this artifact.
+        // This causes weird implicit dependencies, like `publishJsPublication...` depends on `signJvmPublication`.
+        dependsOn(tasks.withType<Sign>())
     }
 }
 
