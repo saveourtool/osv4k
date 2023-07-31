@@ -1,8 +1,8 @@
+import com.saveourtool.osv4k.buildutils.configurePublishing
 import com.saveourtool.osv4k.buildutils.createDetektTask
 
 plugins {
     id("com.saveourtool.osv4k.buildutils.kotlin-library")
-    id("com.saveourtool.osv4k.buildutils.publishing-configuration")
 }
 
 group = "com.saveourtool.osv4k"
@@ -10,8 +10,6 @@ group = "com.saveourtool.osv4k"
 repositories {
     mavenCentral()
 }
-
-createDetektTask()
 
 kotlin {
     jvm {
@@ -60,6 +58,9 @@ kotlin {
         }
     }
 }
+
+createDetektTask()
+configurePublishing()
 
 setOf("compileJava", "compileTestJava").forEach { taskName ->
     tasks.named<JavaCompile>(taskName) {
