@@ -26,7 +26,6 @@ configurePublishing()
  * Configures all aspects of the publishing process.
  */
 fun Project.configurePublishing() {
-    createPublications()
     configureNexusPublishing()
     configureGitHubPublishing()
     configurePublications()
@@ -55,21 +54,6 @@ fun Project.configurePublishing() {
                             }
                         }
                     }
-            }
-        }
-    }
-}
-
-/**
- * Creates the publications.
- */
-fun Project.createPublications() {
-    publishing {
-        publications {
-            create<MavenPublication>("maven") {
-                from(components["java"])
-                suppressPomMetadataWarningsFor("testFixturesApiElements")
-                suppressPomMetadataWarningsFor("testFixturesRuntimeElements")
             }
         }
     }
@@ -145,15 +129,16 @@ fun Project.configureGitHubPublishing(): Unit =
  */
 @Suppress("TOO_LONG_FUNCTION")
 fun Project.configurePublications() {
-    tasks.named<Jar>("javadocJar").configure {
-        from(tasks.findByName("dokkaJavadoc"))
+    @Suppress("GENERIC_VARIABLE_WRONG_DECLARATION")
+    val dokkaJarProvider = tasks.register<Jar>("dokkaJar") {
+        group = "documentation"
+        archiveClassifier.set("javadoc")
+        from(tasks.findByName("dokkaHtml"))
     }
-
     configure<PublishingExtension> {
         publications.withType<MavenPublication>().configureEach {
+            artifact(dokkaJarProvider)
             pom {
-                val project = this@configurePublications
-
                 name.set(project.name)
                 description.set(project.description ?: project.name)
                 url.set("https://github.com/saveourtool/osv4k")
