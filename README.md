@@ -209,7 +209,10 @@ Go vulnerability uses _OSV_ schema. Will use [_GO-2020-0015_](https://vuln.go.de
 
 </details>
 
-### Reading core fields: Kotlin using _Kotlinx Serialization_:
+### Reading core fields
+
+<details>
+<summary>Kotlin using <i>KotlinX Serialization</i></summary>
 
 ```kotlin
 import com.saveourtool.osv4k.*
@@ -224,7 +227,10 @@ fun readFromFile(content: String) {
 }
 ```
 
-### Reading core fields: Java using _Jackson Annotations_:
+</details>
+
+<details>
+<summary>Java using <i>Jackson Annotations</i></summary>
 
 ```java
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -245,9 +251,11 @@ class Test {
 }
 ```
 
-#### Ecosystem and database specific
+</details>
 
-**Go** has specific fields. They will be presented by the following classes in our example:
+### Ecosystem and database specific
+
+**Go vulnerability** has specific fields. They will be presented by the following classes in our example:
 
 <details>
 <summary>Kotlin</summary>
@@ -320,7 +328,10 @@ public class GoUrl {
 
 </details>
 
-### Reading: Kotlin using _Kotlinx Serialization_:
+### Reading with ecosystem and database specific fields
+
+<details>
+<summary>Kotlin using <i>KotlinX Serialization</i></summary>
 
 ```kotlin
 import com.saveourtool.osv4k.*
@@ -335,7 +346,10 @@ fun readFromFile(content: String) {
 }
 ```
 
-### Reading: Java using _Jackson Annotations_:
+</details>
+
+<details>
+<summary>Java using <i>Jackson Annotations</i></summary>
 
 ```java
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -359,7 +373,12 @@ class Test {
 }
 ```
 
-### Generating: Kotlin using _KotlinX Serialization_:
+</details>
+
+### Generating with ecosystem and database specific fields
+
+<details>
+<summary>Kotlin using <i>KotlinX Serialization</i></summary>
 
 ```kotlin
 val osvSchema = OsvSchema<GoUrl, GoImports, Unit, Unit>(
@@ -425,7 +444,10 @@ val osvSchema = OsvSchema<GoUrl, GoImports, Unit, Unit>(
 )
 ```
 
-### Generating: Java using _Jackson Annotations_
+</details>
+
+<details>
+<summary>Java using <i>Jackson Annotations</i></summary>
 
 ```java
 package com.saveourtool.osv4k;
@@ -499,3 +521,5 @@ public final class GoExamples {
     }
 }
 ```
+
+</details>
