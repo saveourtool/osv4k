@@ -4,7 +4,7 @@
 [![GitHub release](https://img.shields.io/github/release/saveourtool/osv4k.svg)](https://github.com/saveourtool/osv4k/releases/)
 [![Maven Central](https://img.shields.io/maven-central/v/com.saveourtool.osv4k/osv4k.svg)](https://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.saveourtool.osv4k%22)
 [![javadoc](https://javadoc.io/badge2/com.saveourtool.osv4k/osv4k/javadoc.svg)](https://javadoc.io/doc/com.saveourtool.osv4k/osv4k)
-[![Build](https://github.com/saveourtool/osv4k/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/saveourtool/osv4k/actions/workflows/build.yml?query=branch%3Amain)
+[![Build and test](https://github.com/saveourtool/osv4k/actions/workflows/build_and_test.yml/badge.svg?branch=main)](https://github.com/saveourtool/osv4k/actions/workflows/build_and_test.yml?query=branch%3Amain)
 [![Dependencies](https://github.com/saveourtool/osv4k/actions/workflows/dependencies.yml/badge.svg?branch=main)](https://github.com/saveourtool/osv4k/actions/workflows/dependencies.yml?query=branch%3Amain)
 
 _Kotlin_ model for [OSV](https://ossf.github.io/osv-schema/) Schema.
