@@ -13,6 +13,11 @@ typealias RawOsvSchema = OsvSchema<JsonObject, JsonObject, JsonObject, JsonObjec
 
 /**
  * A schema for describing a vulnerability in an open source package.
+ *
+ * @param D The top level `database_specific`.
+ * @param A_E `affected[].ecosystem_specific`.
+ * @param A_D `affected[].database_specific`.
+ * @param A_R_D `affected[].ranges[].database_specific`.
  * @property schemaVersion
  * @property id
  * @property modified
@@ -27,10 +32,6 @@ typealias RawOsvSchema = OsvSchema<JsonObject, JsonObject, JsonObject, JsonObjec
  * @property references
  * @property credits
  * @property databaseSpecific
- * @param D The top level `database_specific`.
- * @param A_E `affected[].ecosystem_specific`.
- * @param A_D `affected[].database_specific`.
- * @param A_R_D `affected[].ranges[].database_specific`.
  */
 @Serializable
 @JsonInclude(

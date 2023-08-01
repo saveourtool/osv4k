@@ -2,17 +2,20 @@
     "LONG_LINE",
     "TOO_LONG_FUNCTION",
     "LongMethod",
+    "HEADER_MISSING_IN_NON_SINGLE_CLASS_FILE",
+    "MaxLineLength"
 )
 
 package com.saveourtool.osv4k
 
 import com.saveourtool.osv4k.OsvSchemaJacksonTestUtil.compareJsonContent
 import com.saveourtool.osv4k.OsvSchemaJacksonTestUtil.doEncodeDecodeAndCompare
+
+import kotlin.test.Test
 import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import kotlin.test.Test
 
 @Serializable
 data class GoImports(
@@ -33,7 +36,7 @@ data class GoUrl(
 class GoJacksonTest {
     @Test
     fun `GO-2020-0015`() {
-        val osvSchema = OsvSchema<GoUrl, GoImports, Unit, Unit>(
+        val osvSchema: OsvSchema<GoUrl, GoImports, Unit, Unit> = OsvSchema(
             schemaVersion = "1.3.1",
             id = "GO-2020-0015",
             modified = LocalDateTime(2023, 6, 12, 18, 45, 41),
