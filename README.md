@@ -15,7 +15,7 @@ See the [project website](https://saveourtool.github.io/osv4k/) for documentatio
 
 ## Features
 
-- Support [_Kotlin Multiplatform_](https://kotlinlang.org/docs/multiplatform.html): _jvm_, _js_, _linuxX64_/_mingwX64_/_macosX64_.
+- Support [_Kotlin Multiplatform_](https://kotlinlang.org/docs/multiplatform.html): _jvm_, _js_, _linuxX64_, _mingwX64_, _macosX64_.
 - Support [_KotlinX Serialization_](https://github.com/Kotlin/kotlinx.serialization).
 - Support [_Jackson annotations_](https://github.com/FasterXML/jackson-annotations) for _jvm_ target.
 
