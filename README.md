@@ -19,7 +19,7 @@ See the [project website](https://saveourtool.github.io/osv4k/) for documentatio
 - Support [_KotlinX Serialization_](https://github.com/Kotlin/kotlinx.serialization).
 - Support [_Jackson annotations_](https://github.com/FasterXML/jackson-annotations) for _jvm_ target.
 
-## Releases
+## Dependency
 
 The latest release is available from both _GitHub Packages_ and _Maven Central_.
 For _GitHub Packages_, the repository can be added as follows.
@@ -123,7 +123,7 @@ Requirements:
 Go vulnerability uses _OSV_ schema. Will use [_GO-2020-0015_](https://vuln.go.dev/ID/GO-2020-0015.json) as example:
 
 <details>
-<summary>Content</summary>
+<summary>Example</summary>
 
 ```json
 {
@@ -209,7 +209,7 @@ Go vulnerability uses _OSV_ schema. Will use [_GO-2020-0015_](https://vuln.go.de
 
 </details>
 
-### Reading core fields
+### Read core fields
 
 <details>
 <summary>Kotlin using <i>KotlinX Serialization</i></summary>
@@ -253,7 +253,7 @@ class Test {
 
 </details>
 
-### Ecosystem and database specific
+### Ecosystem and database specific extensions
 
 **Go vulnerability** has specific fields. They will be presented by the following classes in our example:
 
@@ -328,7 +328,7 @@ public class GoUrl {
 
 </details>
 
-### Reading with ecosystem and database specific fields
+### Read with ecosystem and database specific fields
 
 <details>
 <summary>Kotlin using <i>KotlinX Serialization</i></summary>
@@ -375,7 +375,7 @@ class Test {
 
 </details>
 
-### Generating with ecosystem and database specific fields
+### Write with ecosystem and database specific fields
 
 <details>
 <summary>Kotlin using <i>KotlinX Serialization</i></summary>
