@@ -31,6 +31,7 @@ import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
 import org.gradle.plugins.signing.Sign
 import org.gradle.plugins.signing.SigningExtension
 import org.gradle.plugins.signing.SigningPlugin
+import org.jetbrains.dokka.gradle.DokkaPlugin
 
 /**
  * Configures all aspects of the publishing process.
@@ -139,11 +140,12 @@ fun Project.configureGitHubPublishing() {
  */
 @Suppress("TOO_LONG_FUNCTION")
 fun Project.configurePublications() {
+    apply<DokkaPlugin>()
     @Suppress("GENERIC_VARIABLE_WRONG_DECLARATION")
     val dokkaJarProvider = tasks.register<Jar>("dokkaJar") {
         group = "documentation"
         archiveClassifier.set("javadoc")
-        from(tasks.findByName("dokkaHtml"))
+        from(tasks.named("dokkaHtml"))
     }
     configure<PublishingExtension> {
         publications.withType<MavenPublication>().configureEach {

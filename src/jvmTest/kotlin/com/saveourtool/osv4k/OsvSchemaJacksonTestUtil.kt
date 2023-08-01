@@ -24,10 +24,22 @@ object OsvSchemaJacksonTestUtil {
         OsvSchemaJavaTestUtil.doEncodeDecodeAndCompare(originalContent)
     }
 
-    private fun compareJsonContent(
+    /**
+     * @param contentExpected
+     * @param contentActual
+     */
+    fun compareJsonContent(
         contentExpected: String,
         contentActual: String,
     ) {
         assertEquals(objectMapper.readTree(contentExpected), objectMapper.readTree(contentActual))
     }
+
+    /**
+     * @param value
+     * @return encoded value
+     */
+    fun <T> encode(
+        value: T
+    ): String = objectMapper.writeValueAsString(value)
 }

@@ -13,6 +13,11 @@ typealias RawOsvSchema = OsvSchema<JsonObject, JsonObject, JsonObject, JsonObjec
 
 /**
  * A schema for describing a vulnerability in an open source package.
+ *
+ * @param D The top level `database_specific`.
+ * @param A_E `affected[].ecosystem_specific`.
+ * @param A_D `affected[].database_specific`.
+ * @param A_R_D `affected[].ranges[].database_specific`.
  * @property schemaVersion
  * @property id
  * @property modified
@@ -36,7 +41,7 @@ typealias RawOsvSchema = OsvSchema<JsonObject, JsonObject, JsonObject, JsonObjec
     contentFilter = JavaVoid::class,
 )
 @Suppress("GENERIC_NAME", "TYPE_ALIAS")
-data class OsvSchema<D, A_D, A_E, A_R_D>(
+data class OsvSchema<D, A_E, A_D, A_R_D>(
     @SerialName("schema_version")
     @get:JsonProperty(
         value = "schema_version",
@@ -223,7 +228,7 @@ data class OsvSchema<D, A_D, A_E, A_R_D>(
         defaultValue = "",
         access = JsonPropertyAccess.AUTO
     )
-    val affected: List<Affected<A_D, A_E, A_R_D>>? = null,
+    val affected: List<Affected<A_E, A_D, A_R_D>>? = null,
     @JsonProperty(
         value = "references",
         namespace = "",
@@ -282,7 +287,7 @@ data class OsvSchema<D, A_D, A_E, A_R_D>(
     "BACKTICKS_PROHIBITED",
     "GENERIC_NAME"
 )
-data class Affected<D, E, R_D>(
+data class Affected<E, D, R_D>(
     @JsonProperty(
         value = "package",
         namespace = "",
