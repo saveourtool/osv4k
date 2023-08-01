@@ -23,60 +23,38 @@ See the [project website](https://saveourtool.github.io/osv4k/) for documentatio
 The latest release is available from both _GitHub Packages_ and _Maven Central_.
 
 ### <a name="c"></a> If you use Maven Central 
-<summary>
-    Gradle
-</summary>
 
 <details>
-    ```kotlin
-    dependencies {
-        implementation("com.saveourtool.osv4k:osv4k:1.0.0")
-    }
-    ```
+<summary>Gradle</summary>
+
+```kotlin
+dependencies {
+    implementation("com.saveourtool.osv4k:osv4k:1.0.0")
+}
+```
+
 </details>
-    
-<summary>
-    Maven
-</summary>
 
 <details>
-    ```xml
-    <dependency>
-        <groupId>com.saveourtool.osv4k</groupId>
-        <artifactId>osv4k-jvm</artifactId>
-        <version>1.0.0</version>
-    </dependency>
-    ```
+<summary>Maven</summary>
+
+```xml
+<dependency>
+    <groupId>com.saveourtool.osv4k</groupId>
+    <artifactId>osv4k-jvm</artifactId>
+    <version>1.0.0</version>
+</dependency>
+```
+
 </details>
 
 ### If you use Github Packages
 For _GitHub Packages_, the repository can be added as follows.
 
-<details>
-<summary>1) Update `build.gradle.kts`:</summary>
+1. Update `build.gradle.kts`: 
+    <details>
 
-```kotlin
-repositories {
-    maven {
-        name = "saveourtool/osv4k"
-        url = uri("https://maven.pkg.github.com/saveourtool/osv4k")
-        content {
-            includeGroup("com.saveourtool.osv4k")
-        }
-        credentials {
-            username = project.findProperty("gpr.user") as String? ?: System.getenv("GITHUB_ACTOR")
-            password = project.findProperty("gpr.key") as String? ?: System.getenv("GITHUB_TOKEN")
-        }
-    }
-}
-```
-</details>
-
-<details>
-<summary>2) Update `settings.gradle.kts`:</summary>
-
-```kotlin
-dependencyResolutionManagement {
+    ```kotlin
     repositories {
         maven {
             name = "saveourtool/osv4k"
@@ -85,17 +63,39 @@ dependencyResolutionManagement {
                 includeGroup("com.saveourtool.osv4k")
             }
             credentials {
-                username = providers.gradleProperty("gpr.user").orNull
-                    ?: System.getenv("GITHUB_ACTOR")
-                password = providers.gradleProperty("gpr.key").orNull
-                    ?: System.getenv("GITHUB_TOKEN")
+                username = project.findProperty("gpr.user") as String? ?: System.getenv("GITHUB_ACTOR")
+                password = project.findProperty("gpr.key") as String? ?: System.getenv("GITHUB_TOKEN")
             }
         }
     }
-}
-```
+    ```
+    </details>
 
-</details>
+2. Update `settings.gradle.kts`:
+    <details>
+
+
+    ```kotlin
+    dependencyResolutionManagement {
+        repositories {
+            maven {
+                name = "saveourtool/osv4k"
+                url = uri("https://maven.pkg.github.com/saveourtool/osv4k")
+                content {
+                    includeGroup("com.saveourtool.osv4k")
+                }
+                credentials {
+                    username = providers.gradleProperty("gpr.user").orNull
+                        ?: System.getenv("GITHUB_ACTOR")
+                    password = providers.gradleProperty("gpr.key").orNull
+                        ?: System.getenv("GITHUB_TOKEN")
+                }
+            }
+        }
+    }
+    ```
+
+    </details>
 
 3) Then add the dependency as [usual](#c)
 
