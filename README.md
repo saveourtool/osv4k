@@ -7,7 +7,7 @@
 [![Build and test](https://github.com/saveourtool/osv4k/actions/workflows/build_and_test.yml/badge.svg?branch=main)](https://github.com/saveourtool/osv4k/actions/workflows/build_and_test.yml?query=branch%3Amain)
 [![Dependencies](https://github.com/saveourtool/osv4k/actions/workflows/dependencies.yml/badge.svg?branch=main)](https://github.com/saveourtool/osv4k/actions/workflows/dependencies.yml?query=branch%3Amain)
 
-_Kotlin_ model for [OSV](https://ossf.github.io/osv-schema/) Schema.
+_Kotlin_ and _Java_ model for the serialization and deserialization of [OSV](https://ossf.github.io/osv-schema/) Schema.
 
 This library is inspired by the tool [detekt/sarif4k](https://github.com/detekt/sarif4k).
 
