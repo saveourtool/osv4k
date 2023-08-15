@@ -125,7 +125,7 @@ fun Project.configureGitHubPublishing() {
         repositories {
             maven {
                 name = "GitHub"
-                url = uri("https://maven.pkg.github.com/saveourtool/osv4k")
+                url = uri("https://maven.pkg.github.com/saveourtool/cosv4k")
                 credentials {
                     username = findProperty("gpr.user") as String? ?: System.getenv("GITHUB_ACTOR")
                     password = findProperty("gpr.key") as String? ?: System.getenv("GITHUB_TOKEN")
@@ -153,7 +153,7 @@ fun Project.configurePublications() {
             pom {
                 name.set(project.name)
                 description.set(project.description ?: project.name)
-                url.set("https://github.com/saveourtool/osv4k")
+                url.set("https://github.com/saveourtool/cosv4k")
                 licenses {
                     license {
                         name.set("MIT License")
@@ -169,9 +169,9 @@ fun Project.configurePublications() {
                     }
                 }
                 scm {
-                    url.set("https://github.com/saveourtool/osv4k")
-                    connection.set("scm:git:https://github.com/saveourtool/osv4k.git")
-                    developerConnection.set("scm:git:git@github.com:saveourtool/osv4k.git")
+                    url.set("https://github.com/saveourtool/cosv4k")
+                    connection.set("scm:git:https://github.com/saveourtool/cosv4k.git")
+                    developerConnection.set("scm:git:git@github.com:saveourtool/cosv4k.git")
                 }
             }
         }
