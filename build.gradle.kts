@@ -5,7 +5,7 @@ plugins {
     id("com.saveourtool.osv4k.buildutils.kotlin-library")
 }
 
-group = "com.saveourtool.osv4k"
+group = "com.saveourtool.cosv4k"
 
 repositories {
     mavenCentral()

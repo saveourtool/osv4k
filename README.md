@@ -1,17 +1,18 @@
-# osv4k
+# cosv4k
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![GitHub release](https://img.shields.io/github/release/saveourtool/osv4k.svg)](https://github.com/saveourtool/osv4k/releases/)
-[![Maven Central](https://img.shields.io/maven-central/v/com.saveourtool.osv4k/osv4k.svg)](https://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.saveourtool.osv4k%22)
-[![javadoc](https://javadoc.io/badge2/com.saveourtool.osv4k/osv4k/javadoc.svg)](https://javadoc.io/doc/com.saveourtool.osv4k/osv4k)
-[![Build and test](https://github.com/saveourtool/osv4k/actions/workflows/build_and_test.yml/badge.svg?branch=main)](https://github.com/saveourtool/osv4k/actions/workflows/build_and_test.yml?query=branch%3Amain)
-[![Dependencies](https://github.com/saveourtool/osv4k/actions/workflows/dependencies.yml/badge.svg?branch=main)](https://github.com/saveourtool/osv4k/actions/workflows/dependencies.yml?query=branch%3Amain)
+[![GitHub release](https://img.shields.io/github/release/saveourtool/cosv4k.svg)](https://github.com/saveourtool/cosv4k/releases/)
+[![Maven Central](https://img.shields.io/maven-central/v/com.saveourtool.cosv4k/cosv4k.svg)](https://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.saveourtool.cosv4k%22)
+[![javadoc](https://javadoc.io/badge2/com.saveourtool.cosv4k/cosv4k/javadoc.svg)](https://javadoc.io/doc/com.saveourtool.cosv4k/cosv4k)
+[![Build and test](https://github.com/saveourtool/cosv4k/actions/workflows/build_and_test.yml/badge.svg?branch=main)](https://github.com/saveourtool/cosv4k/actions/workflows/build_and_test.yml?query=branch%3Amain)
+[![Dependencies](https://github.com/saveourtool/cosv4k/actions/workflows/dependencies.yml/badge.svg?branch=main)](https://github.com/saveourtool/cosv4k/actions/workflows/dependencies.yml?query=branch%3Amain)
 
-_Kotlin_ and _Java_ model for the serialization and deserialization of [OSV](https://ossf.github.io/osv-schema/) Schema.
+_Kotlin_ and _Java_ model for the serialization and deserialization of [COSV](https://www.gitlink.org.cn/zone/CCF-ODC/source/7) Schema
+(extension for [OSV](https://ossf.github.io/osv-schema/)).
 
 This library is inspired by the tool [detekt/sarif4k](https://github.com/detekt/sarif4k).
 
-See the [project website](https://saveourtool.github.io/osv4k/) for documentation and APIs.
+See the [project website](https://saveourtool.github.io/cosv4k/) for documentation and APIs.
 
 ## Features
 
@@ -29,7 +30,7 @@ The latest release is available from both _GitHub Packages_ and _Maven Central_.
 
 ```kotlin
 dependencies {
-    implementation("com.saveourtool.osv4k:osv4k:1.0.0")
+    implementation("com.saveourtool.cosv4k:cosv4k:1.0.0")
 }
 ```
 
@@ -40,8 +41,8 @@ dependencies {
 
 ```xml
 <dependency>
-    <groupId>com.saveourtool.osv4k</groupId>
-    <artifactId>osv4k-jvm</artifactId>
+    <groupId>com.saveourtool.cosv4k</groupId>
+    <artifactId>cosv4k-jvm</artifactId>
     <version>1.0.0</version>
 </dependency>
 ```
@@ -57,10 +58,10 @@ For _GitHub Packages_, the repository can be added as follows.
     ```kotlin
     repositories {
         maven {
-            name = "saveourtool/osv4k"
-            url = uri("https://maven.pkg.github.com/saveourtool/osv4k")
+            name = "saveourtool/cosv4k"
+            url = uri("https://maven.pkg.github.com/saveourtool/cosv4k")
             content {
-                includeGroup("com.saveourtool.osv4k")
+                includeGroup("com.saveourtool.cosv4k")
             }
             credentials {
                 username = project.findProperty("gpr.user") as String? ?: System.getenv("GITHUB_ACTOR")
@@ -79,10 +80,10 @@ For _GitHub Packages_, the repository can be added as follows.
     dependencyResolutionManagement {
         repositories {
             maven {
-                name = "saveourtool/osv4k"
-                url = uri("https://maven.pkg.github.com/saveourtool/osv4k")
+                name = "saveourtool/cosv4k"
+                url = uri("https://maven.pkg.github.com/saveourtool/cosv4k")
                 content {
-                    includeGroup("com.saveourtool.osv4k")
+                    includeGroup("com.saveourtool.cosv4k")
                 }
                 credentials {
                     username = providers.gradleProperty("gpr.user").orNull
@@ -108,7 +109,7 @@ _OSV Schema_ has extension points for database and ecosystem specific fields:
    - `affected[].database_specific`.
 3. `affected[].ranges[].database`.
 
-_OSV4K Model_ implements it using generic type:
+_COSV4K Model_ implements it using generic type:
 ```kotlin
 /**
  * @param D The top level `database_specific`.

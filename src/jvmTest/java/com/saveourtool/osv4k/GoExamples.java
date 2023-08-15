@@ -60,6 +60,9 @@ public final class GoExamples {
             null,
             Arrays.asList("CVE-2020-14040", "GHSA-5rcv-m4m3-hfh7"),
             null,
+            null,
+            null,
+            null,
             "Infinite loop when decoding some inputs in golang.org/x/text",
             "An attacker could provide a single byte to a UTF16 decoder instantiated with UseBOM or ExpectBOM to trigger an infinite loop if the String function on the Decoder is called, or the Decoder is passed to transform.String. If used to parse user supplied input, this may be used as a denial of service vector.",
             null,
@@ -68,6 +71,12 @@ public final class GoExamples {
                     new Package(
                         "Go",
                         "golang.org/x/text",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
                         null
                     ),
                     null,
@@ -95,6 +104,7 @@ public final class GoExamples {
                             )
                         )
                     ),
+                    null,
                     null
                 )
             ),
@@ -108,7 +118,9 @@ public final class GoExamples {
                 new Credit("@abacabadabacaba", null, null),
                 new Credit("Anton Gyllenberg", null, null)
             ),
-            new GoUrl("https://pkg.go.dev/vuln/GO-2020-0015")
+            new GoUrl("https://pkg.go.dev/vuln/GO-2020-0015"),
+            null,
+            null
         );
     }
 }

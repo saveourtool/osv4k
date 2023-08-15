@@ -1,4 +1,4 @@
-rootProject.name = "osv4k"
+rootProject.name = "cosv4k"
 
 dependencyResolutionManagement {
     repositories {
