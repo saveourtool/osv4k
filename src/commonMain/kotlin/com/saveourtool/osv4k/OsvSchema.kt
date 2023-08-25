@@ -776,7 +776,7 @@ data class Severity(
         defaultValue = "",
         access = JsonPropertyAccess.AUTO
     )
-    val level: SeverityLevel,
+    val level: SeverityLevel? = null,
     @SerialName("score_num")
     @get:JsonProperty(
         value = "score_num",
@@ -794,7 +794,7 @@ data class Severity(
         defaultValue = "",
         access = JsonPropertyAccess.AUTO
     )
-    val scoreNum: String,
+    val scoreNum: String? = null,
 )
 
 /**
