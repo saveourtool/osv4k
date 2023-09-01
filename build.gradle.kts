@@ -18,10 +18,13 @@ kotlin {
             kotlinOptions.jvmTarget = "1.8"
         }
     }
-    val nativeTargets = setOf(
+    val nonJvmTargets = setOf(
         linuxX64(),
         mingwX64(),
         macosX64(),
+        js(IR) {
+            useCommonJs()
+        }
     )
     sourceSets {
         val commonMain by getting {
@@ -39,23 +42,22 @@ kotlin {
         val commonNonJvmMain by creating {
             dependsOn(commonMain)
         }
-        nativeTargets.forEach { nativeTarget ->
+        nonJvmTargets.forEach { nativeTarget ->
             getByName("${nativeTarget.name}Main").dependsOn(commonNonJvmMain)
         }
-        @Suppress("UNUSED_VARIABLE")
         val jvmMain by getting {
             dependencies {
                 api(libs.jackson.annotations)
                 api(libs.jackson.databind)
             }
         }
-        @Suppress("UNUSED_VARIABLE")
         val jvmTest by getting {
             dependsOn(commonTest)
             dependencies {
                 implementation(kotlin("test-junit5"))
             }
         }
+
     }
 }
 
