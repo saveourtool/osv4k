@@ -23,6 +23,8 @@ kotlin {
         mingwX64(),
         macosX64(),
         js(IR) {
+            browser()
+            nodejs()
             useCommonJs()
         }
     )
@@ -57,7 +59,6 @@ kotlin {
                 implementation(kotlin("test-junit5"))
             }
         }
-
     }
 }
 
